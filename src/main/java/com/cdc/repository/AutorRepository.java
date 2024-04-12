@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AutorRepository extends JpaRepository<AutorModel, Long> {
+
+    public AutorModel findByEmail(String email);
 }

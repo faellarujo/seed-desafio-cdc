@@ -27,11 +27,15 @@ public class AutorModel {
     @Column(name = "instante")
     private LocalDateTime instante = LocalDateTime.now();
 
-//    public AutorModel(String nome, String email, String descricao, LocalDateTime instante) {
-//        this.nome = nome;
-//        this.email = email;
-//        this.descricao = descricao;
-//    }
+
+    public AutorModel() {
+    }
+
+    public AutorModel(String nome, String email, String descricao, LocalDateTime instante) {
+        this.nome = nome;
+        this.email = email;
+        this.descricao = descricao;
+    }
 
     public String getNome() {
         return nome;
