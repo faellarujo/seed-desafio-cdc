@@ -1,13 +1,14 @@
 package com.cdc.globalExceptionHandler;
 
+import com.cdc.exception.CategoriaExisteException;
 import com.cdc.exception.EmailExistsException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.http.HttpStatus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,4 +27,10 @@ public class CustomValidationExceptionHandler {
     public ResponseEntity<String> emailExistsException(EmailExistsException ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
+
+    @ExceptionHandler(CategoriaExisteException.class)//1
+    public ResponseEntity<String> categoriaExistsException(CategoriaExisteException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
 }

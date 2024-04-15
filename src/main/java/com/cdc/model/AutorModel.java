@@ -15,27 +15,30 @@ public class AutorModel {
     private Long id;
 
     @Column(name = "nome")
+    @NotBlank
     private String nome;
 
     @Column(name = "email", nullable = false, length = 50)
     @Email(message = "Email inválido")
+    @NotBlank
     private String email;
 
     @Column(name = "descricao", nullable = false, length = 400)
+    @NotBlank
     private String descricao;
 
     @Column(name = "instante")
     private LocalDateTime instante = LocalDateTime.now();
-
-
-    public AutorModel() {
-    }
 
     public AutorModel(String nome, String email, String descricao, LocalDateTime instante) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
     }
+
+    public AutorModel() {
+    }
+
 
     public String getNome() {
         return nome;

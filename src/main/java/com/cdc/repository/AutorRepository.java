@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AutorRepository extends JpaRepository<AutorModel, Long> {
+public interface AutorRepository extends JpaRepository<AutorModel, Long>, NomeRepository<AutorModel> {
 
-    public AutorModel findByEmail(String email);
+    AutorModel findByEmail(String email);
 }

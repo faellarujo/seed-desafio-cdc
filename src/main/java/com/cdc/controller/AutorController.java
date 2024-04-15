@@ -1,13 +1,11 @@
 package com.cdc.controller;
 
 
-import com.cdc.dto.AutorDTO;
 import com.cdc.exception.EmailExistsException;
 import com.cdc.model.AutorModel;
 import com.cdc.repository.AutorRepository;
 import com.cdc.service.AutorService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +31,13 @@ public class    AutorController {
     @Autowired
     private AutorService autorService;//1
     @PostMapping("/autores")
-    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorDTO autorDTO){ //1
+    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorModel model){ //1
         try {
-            autorService.EmailDuplicado(autorDTO.email());//1
+            autorService.EmailDuplicado(model);//1
         } catch (EmailExistsException e) { //1
             throw new EmailExistsException(e.getMessage()); //1
         }
-        AutorModel autorModel = new AutorModel();//1
-        BeanUtils.copyProperties(autorDTO, autorModel);
+        AutorModel autorModel = new AutorModel(model.getNome(), model.getEmail(), model.getDescricao(), model.getInstante()); //1
         return ResponseEntity.status(HttpStatus.OK).body(autorRepository.save(autorModel));
     }
 }
