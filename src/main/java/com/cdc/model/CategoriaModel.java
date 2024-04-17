@@ -1,6 +1,7 @@
 package com.cdc.model;
 
 
+import com.cdc.validadores.NomeAlreadyExists;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,6 +14,7 @@ public class CategoriaModel {
 
     @Column(nullable = false)
     @NotBlank
+    @NomeAlreadyExists()
     private String nome;
 
     public CategoriaModel(){

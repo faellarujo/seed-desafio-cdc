@@ -13,9 +13,9 @@ public class CategoriaService {
     @Autowired
     public CategoriaRepository categoriaRepository;
 
-    public void categoriaDuplicada(CategoriaModel model) {
-        if (categoriaRepository.findByNome(model.getNome()) != null){ //
-            throw new CategoriaExisteException("Categoria já cadastrada");
-        }
-    }
+//    public void categoriaDuplicada(CategoriaModel model) {
+//        if (categoriaRepository.findByNome(model.getNome()) != null){ //
+//            throw new CategoriaExisteException("Categoria já cadastrada");
+//        }
+//    }
 }

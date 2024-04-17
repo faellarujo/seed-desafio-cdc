@@ -1,7 +1,6 @@
 package com.cdc.controller;
 
 
-import com.cdc.exception.CategoriaExisteException;
 import com.cdc.model.CategoriaModel;
 import com.cdc.repository.CategoriaRepository;
 import com.cdc.service.CategoriaService;
@@ -22,14 +21,8 @@ public class CategoriaController {
     @Autowired
     public CategoriaService categoriaService; //1
 
-    @PostMapping("/categorias")
+   @PostMapping("/categorias")
    public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaModel model){
-        try {
-            categoriaService.categoriaDuplicada(model); //1
-        } catch (CategoriaExisteException e) { //1
-            throw new CategoriaExisteException(e.getMessage()); //1
-        }
-        CategoriaModel categoriaModel = new CategoriaModel(model.getNome()); //1
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(categoriaModel));
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(model));
     }
 }
