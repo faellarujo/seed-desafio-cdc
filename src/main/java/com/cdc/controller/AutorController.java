@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class    AutorController {
+public class AutorController {
 
     /**
      * Simula a criação de um autor

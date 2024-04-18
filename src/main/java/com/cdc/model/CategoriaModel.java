@@ -1,7 +1,7 @@
 package com.cdc.model;
 
 
-import com.cdc.validadores.NomeAlreadyExists;
+import com.cdc.validadores.UniqueValue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -14,15 +14,15 @@ public class CategoriaModel {
 
     @Column(nullable = false)
     @NotBlank
-    @NomeAlreadyExists()
+    @UniqueValue(domainClass = CategoriaModel.class, fieldName = "nome")
     private String nome;
 
     public CategoriaModel(){
 
     }
 
-    public CategoriaModel(String nome) {
-        this.nome = nome;
+    public CategoriaModel(String request) {
+        this.nome = request;
     }
 
     public Long getId() {
@@ -36,6 +36,4 @@ public class CategoriaModel {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-
 }

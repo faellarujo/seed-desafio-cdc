@@ -3,7 +3,8 @@ package com.cdc.controller;
 
 import com.cdc.model.CategoriaModel;
 import com.cdc.repository.CategoriaRepository;
-import com.cdc.service.CategoriaService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,13 @@ public class CategoriaController {
     @Autowired
     public CategoriaRepository categoriaRepository; //1
 
-    @Autowired
-    public CategoriaService categoriaService; //1
 
+    @PersistenceContext
+    private EntityManager manager;
    @PostMapping("/categorias")
    public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaModel model){
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(model));
+           return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(model));
     }
+
+
 }

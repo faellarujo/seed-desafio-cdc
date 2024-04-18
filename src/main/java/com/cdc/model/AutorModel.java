@@ -1,6 +1,7 @@
 package com.cdc.model;
 
 
+import com.cdc.validadores.UniqueValue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class AutorModel {
     @Column(name = "email", nullable = false, length = 50)
     @Email(message = "Email inválido")
     @NotBlank
+    @UniqueValue(domainClass = AutorModel.class, fieldName = "email")
     private String email;
 
     @Column(name = "descricao", nullable = false, length = 400)

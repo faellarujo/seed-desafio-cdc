@@ -1,5 +1,6 @@
 package com.cdc.validadores;
 
+
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -8,19 +9,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = NomeAlreadyExistsValidator.class)
+@Constraint(validatedBy = UniqueValueValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NomeAlreadyExists {
-    String message() default "Categoria já cadastrada!!!";
+public @interface UniqueValue {
+    String message() default "Campo duplicado!!!";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
+    String fieldName();
 
-
-
-
-
+    Class<?> domainClass();
 }
