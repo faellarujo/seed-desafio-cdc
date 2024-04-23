@@ -1,12 +1,13 @@
 package com.cdc.controller;
 
 
+import com.cdc.dto.CategoriaRequest;
+import com.cdc.model.AutorModel;
 import com.cdc.model.CategoriaModel;
-import com.cdc.repository.CategoriaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,16 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoriaController {
 
-    @Autowired
-    public CategoriaRepository categoriaRepository; //1
-
-
     @PersistenceContext
-    private EntityManager manager;
+    EntityManager entityManager;
    @PostMapping("/categorias")
-   public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaModel model){
-           return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(model));
+   @Transactional
+   public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaRequest categoriaRequest){
+       entityManager.persist(categoriaRequest.toModel());
+       return ResponseEntity.status(HttpStatus.OK).body(categoriaRequest.toModel());
     }
-
-
 }

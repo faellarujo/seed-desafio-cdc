@@ -1,38 +1,41 @@
-package com.cdc.model;
+package com.cdc.dto;
 
-
-import jakarta.persistence.*;
+import com.cdc.model.AutorModel;
+import com.cdc.validadores.UniqueValue;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class AutorModel {
+public class AutorRequest {
 
-    @Id
-    @Column(name = "autor_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nome")
+    @NotBlank
     private String nome;
 
-    @Column(name = "email", nullable = false, length = 50)
+
+    @Email(message = "Email inválido")
+    @Size(max = 50)
+    @NotBlank
+    @UniqueValue(domainClass = AutorModel.class, fieldName = "email")
     private String email;
 
-    @Column(name = "descricao", nullable = false, length = 400)
+
+    @NotBlank
+    @Size(max = 400)
     private String descricao;
 
-    @Column(name = "instante")
     private LocalDateTime instante = LocalDateTime.now();
 
-    public AutorModel() {
-    }
-
-    public AutorModel(String nome, String email, String descricao, LocalDateTime instante) {
+    public AutorRequest(
+        @NotBlank String nome, @NotBlank @Email String email, @NotBlank String descricao, LocalDateTime instante) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
     }
+
 
     public String getNome() {
         return nome;
@@ -62,7 +65,7 @@ public class AutorModel {
         return instante;
     }
 
-
-
+    public AutorModel toModel() {
+        return new AutorModel(this.nome, this.email, this.descricao, this.instante);
+    }
 }
-

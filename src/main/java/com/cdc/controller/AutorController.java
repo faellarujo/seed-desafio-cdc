@@ -1,10 +1,10 @@
 package com.cdc.controller;
 
 
-import com.cdc.exception.EmailExistsException;
+import com.cdc.dto.AutorRequest;
 import com.cdc.model.AutorModel;
-import com.cdc.repository.AutorRepository;
-import com.cdc.service.AutorService;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,20 +24,12 @@ public class AutorController {
      * 100% de coesao, os metodos estão fazendo uso de todos os atributis
      *
      */
-
     @Autowired
-    private AutorRepository autorRepository;
-
-    @Autowired
-    private AutorService autorService;//1
+    EntityManager entityManager;
     @PostMapping("/autores")
-    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorModel model){ //1
-        try {
-            autorService.EmailDuplicado(model);//1
-        } catch (EmailExistsException e) { //1
-            throw new EmailExistsException(e.getMessage()); //1
-        }
-        AutorModel autorModel = new AutorModel(model.getNome(), model.getEmail(), model.getDescricao(), model.getInstante()); //1
-        return ResponseEntity.status(HttpStatus.OK).body(autorRepository.save(autorModel));
+    @Transactional
+    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorRequest autorRequest){ //1
+        entityManager.persist(autorRequest.toModel());
+        return ResponseEntity.status(HttpStatus.OK).body(autorRequest.toModel()); //2
     }
 }
