@@ -1,8 +1,7 @@
 package com.cdc.controller;
 
 
-import com.cdc.dto.CategoriaRequest;
-import com.cdc.model.AutorModel;
+import com.cdc.requests.CategoriaRequest;
 import com.cdc.model.CategoriaModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

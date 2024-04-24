@@ -1,5 +1,6 @@
 package com.cdc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,10 +31,15 @@ public class LivroModel {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Um Livro tem uma categoria
     @JoinColumn(name = "categoria_id")
+    @JsonIgnore
     private CategoriaModel categoria;
     @ManyToOne(fetch = FetchType.LAZY) // Um Autor tem um livro
     @JoinColumn(name = "autor_id")
+    @JsonIgnore
     private AutorModel autor;
+
+    public LivroModel() {
+    }
 
     public LivroModel(String titulo, String resumo, String sumario, BigDecimal precoDoLivro, Integer numeroDePaginas, String isbn, LocalDate dataDePublicacao, CategoriaModel categoria, AutorModel autor) {
         this.titulo = titulo;
@@ -45,6 +51,10 @@ public class LivroModel {
         this.dataDePublicacao = dataDePublicacao;
         this.categoria = categoria;
         this.autor = autor;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {

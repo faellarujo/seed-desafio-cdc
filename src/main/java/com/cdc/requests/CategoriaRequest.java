@@ -1,6 +1,5 @@
-package com.cdc.dto;
+package com.cdc.requests;
 
-import com.cdc.model.AutorModel;
 import com.cdc.model.CategoriaModel;
 import com.cdc.validadores.UniqueValue;
 import jakarta.validation.constraints.NotBlank;

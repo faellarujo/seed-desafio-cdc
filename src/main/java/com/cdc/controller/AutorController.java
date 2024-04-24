@@ -1,7 +1,7 @@
 package com.cdc.controller;
 
 
-import com.cdc.dto.AutorRequest;
+import com.cdc.requests.AutorRequest;
 import com.cdc.model.AutorModel;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

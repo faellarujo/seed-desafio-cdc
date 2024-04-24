@@ -11,8 +11,6 @@ public class CategoriaModel {
         @Column(name = "categoria_id")
         private Long id;
 
-
-
         @Column(name = "nome")
         private String nome;
 
@@ -20,7 +18,6 @@ public class CategoriaModel {
         }
 
         public CategoriaModel(String nome) {
-
             this.nome = nome;
         }
 
