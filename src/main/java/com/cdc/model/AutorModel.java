@@ -4,6 +4,7 @@ package com.cdc.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class AutorModel {
@@ -24,6 +25,29 @@ public class AutorModel {
 
     @Column(name = "instante")
     private LocalDateTime instante = LocalDateTime.now();
+
+    @ManyToMany(mappedBy = "autor")
+    private List<LivroModel> livroModel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setInstante(LocalDateTime instante) {
+        this.instante = instante;
+    }
+
+    public List<LivroModel> getLivroModel() {
+        return livroModel;
+    }
+
+    public void setLivroModel(List<LivroModel> livroModel) {
+        this.livroModel = livroModel;
+    }
 
     public AutorModel() {
     }

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -33,10 +34,11 @@ public class LivroModel {
     @JoinColumn(name = "categoria_id")
     @JsonIgnore
     private CategoriaModel categoria;
-    @ManyToOne(fetch = FetchType.LAZY) // Um Autor tem um livro
-    @JoinColumn(name = "autor_id")
-    @JsonIgnore
-    private AutorModel autor;
+    @ManyToMany(fetch = FetchType.LAZY) // Um Autor tem um livro
+    @JoinTable(name = "autores_livros",
+            joinColumns = @JoinColumn(name = "autor_id"),
+            inverseJoinColumns = @JoinColumn(name = "livro_id"))
+    private List<AutorModel> autor;
 
     public LivroModel() {
     }
@@ -50,7 +52,7 @@ public class LivroModel {
         this.isbn = isbn;
         this.dataDePublicacao = dataDePublicacao;
         this.categoria = categoria;
-        this.autor = autor;
+        this.autor = List.of(autor);
     }
 
     public Long getId() {
@@ -122,10 +124,10 @@ public class LivroModel {
     }
 
     public AutorModel getAutor() {
-        return autor;
+        return autor.get(0);
     }
 
     public void setAutor(AutorModel autor) {
-        this.autor = autor;
+        this.autor = List.of(autor);
     }
 }

@@ -35,7 +35,13 @@ public class AutorRequest {
         this.descricao = descricao;
     }
 
+    public AutorRequest() {
+    }
 
+
+    public Long getId() {
+        return id;
+    }
     public String getNome() {
         return nome;
     }
@@ -65,6 +71,6 @@ public class AutorRequest {
     }
 
     public AutorModel toModel() {
-        return new AutorModel(this.nome, this.email, this.descricao, this.instante);
+        return new AutorModel(this.id, this.nome, this.email, this.descricao, this.instante);
     }
 }

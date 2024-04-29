@@ -10,10 +10,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,4 +37,16 @@ public class LivroController {
         List<LivrosDto> livrosDto = new ArrayList<>(LivrosDto.toDto(selectLFromLivroModelL));
     return ResponseEntity.status(HttpStatus.OK).body(livrosDto);
     }
+
+
+    @GetMapping("/livros/{id}")
+    public ResponseEntity<LivroModel> listaDetalhesLivro(@PathVariable Long id) {
+
+        final LivroModel livroModel = entityManager.find(LivroModel.class, id);
+        if(livroModel == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(livroModel);
+    }
+
 }
