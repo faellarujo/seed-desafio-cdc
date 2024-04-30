@@ -2,6 +2,7 @@ package com.cdc.globalExceptionHandler;
 
 import com.cdc.exception.CategoriaExisteException;
 import com.cdc.exception.EmailExistsException;
+import com.cdc.exception.LivroExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,5 +33,14 @@ public class CustomValidationExceptionHandler {
     public ResponseEntity<String> categoriaExistsException(CategoriaExisteException ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
+
+
+    @ExceptionHandler(LivroExistException.class)//1
+    public ResponseEntity<String> livroExistsException(LivroExistException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
+
+
 
 }

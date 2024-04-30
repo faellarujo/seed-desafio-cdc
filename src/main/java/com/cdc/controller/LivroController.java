@@ -2,6 +2,7 @@ package com.cdc.controller;
 
 
 import com.cdc.dto.LivrosDto;
+import com.cdc.exception.LivroExistException;
 import com.cdc.requests.LivroRequest;
 import com.cdc.model.LivroModel;
 import jakarta.persistence.EntityManager;
@@ -43,8 +44,9 @@ public class LivroController {
     public ResponseEntity<LivroModel> listaDetalhesLivro(@PathVariable Long id) {
 
         final LivroModel livroModel = entityManager.find(LivroModel.class, id);
-        if(livroModel == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(livroModel == null) { //1
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new LivroExistException("Livro não encontrado");
         }
         return ResponseEntity.status(HttpStatus.OK).body(livroModel);
     }
