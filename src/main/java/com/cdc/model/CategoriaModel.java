@@ -1,6 +1,7 @@
 package com.cdc.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class CategoriaModel {
 
         @Column(name = "nome")
         private String nome;
-
+        @JsonManagedReference
         @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
         private List<LivroModel> livros;
 

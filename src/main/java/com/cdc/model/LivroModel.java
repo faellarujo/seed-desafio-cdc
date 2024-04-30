@@ -1,6 +1,6 @@
 package com.cdc.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -29,11 +29,12 @@ public class LivroModel {
     private String isbn;
 
     private LocalDate dataDePublicacao;
-
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Um Livro tem uma categoria
     @JoinColumn(name = "categoria_id")
     @JsonIgnore
     private CategoriaModel categoria;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(fetch = FetchType.LAZY) // Um Autor tem um livro
     @JoinTable(name = "autores_livros",
             joinColumns = @JoinColumn(name = "autor_id"),
@@ -131,3 +132,7 @@ public class LivroModel {
         this.autor = List.of(autor);
     }
 }
+
+
+
+

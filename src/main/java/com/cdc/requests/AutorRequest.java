@@ -71,6 +71,6 @@ public class AutorRequest {
     }
 
     public AutorModel toModel() {
-        return new AutorModel(this.id, this.nome, this.email, this.descricao, this.instante);
+        return new AutorModel(this.nome, this.email, this.descricao, this.instante);
     }
 }

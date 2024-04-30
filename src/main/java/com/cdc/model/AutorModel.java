@@ -1,6 +1,9 @@
 package com.cdc.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -26,6 +29,7 @@ public class AutorModel {
     @Column(name = "instante")
     private LocalDateTime instante = LocalDateTime.now();
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(mappedBy = "autor")
     private List<LivroModel> livroModel;
 

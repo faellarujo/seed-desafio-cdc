@@ -21,7 +21,8 @@ public class CategoriaController {
    @PostMapping("/categorias")
    @Transactional
    public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaRequest categoriaRequest){
-       entityManager.persist(categoriaRequest.toModel());
-       return ResponseEntity.status(HttpStatus.OK).body(categoriaRequest.toModel());
+       CategoriaModel model = categoriaRequest.toModel();
+       entityManager.persist(model);
+       return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 }

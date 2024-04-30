@@ -28,8 +28,9 @@ public class AutorController {
     EntityManager entityManager;
     @PostMapping("/autores")
     @Transactional
-    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorRequest autorRequest){ //1
-        entityManager.persist(autorRequest.toModel());
-        return ResponseEntity.status(HttpStatus.OK).body(autorRequest.toModel()); //2
+    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorRequest autorRequest) {
+        AutorModel model = autorRequest.toModel();
+        entityManager.persist(model);
+        return ResponseEntity.status(HttpStatus.OK).body(model);
     }
 }

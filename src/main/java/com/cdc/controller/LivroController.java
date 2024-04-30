@@ -27,7 +27,7 @@ public class LivroController {
     public ResponseEntity<LivroModel> cadastrarLivro(@RequestBody @Valid LivroRequest livroRequest) {
         LivroModel livro = livroRequest.toModel(entityManager);
         entityManager.persist(livro);
-        return ResponseEntity.status(HttpStatus.OK).body(livroRequest.toModel(entityManager));
+        return ResponseEntity.status(HttpStatus.OK).body(livro);
     }
 
     @GetMapping("/livros")
