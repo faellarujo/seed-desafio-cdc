@@ -32,10 +32,7 @@ public class EstadoController {
     @Transactional
     public ResponseEntity<EstadoModel> cadastrarEstado(@RequestBody @Valid EstadoRequest estadoRequest){
         paisModel = entityManager.find(PaisModel.class, estadoRequest.getPaisId());
-        if(paisModel == null){
-            throw new PaisExistException("O país informado não existe.");
-        }
-        EstadoModel estadoModel = estadoRequest.toModel();
+        EstadoModel estadoModel = new EstadoModel(estadoRequest.getNome(), paisModel.getId());
         estadoModel.setPais(paisModel);
         entityManager.persist(estadoModel);
         return ResponseEntity.status(HttpStatus.OK).body(estadoModel);

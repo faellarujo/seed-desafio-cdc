@@ -22,8 +22,10 @@ public class PaisController {
     @PostMapping("/pais")
     @Transactional
     public ResponseEntity<PaisModel> cadastrarPais(@RequestBody @Valid PaisRequest paisRequest ){
-        PaisModel model = paisRequest.toModel();
-        paisRepository.save(model);
-        return ResponseEntity.ok().body(model);
+
+        PaisModel pais = new PaisModel(paisRequest.getNome());
+        pais = paisRequest.toModel();
+        paisRepository.save(pais);
+        return ResponseEntity.ok().body(pais);
     }
 }
