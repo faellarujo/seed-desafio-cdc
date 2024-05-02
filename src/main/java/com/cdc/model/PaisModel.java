@@ -15,7 +15,9 @@ public class PaisModel {
     private Long id;
     private String nome;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonBackReference
+    //@JsonManagedReference
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
     private List<EstadoModel> estados;
 

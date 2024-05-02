@@ -18,7 +18,7 @@ public class EstadoRequest {
     @ExistId(domainClass = PaisModel.class, fieldName = "id")
     private Long paisId;
 
-    public EstadoRequest(@NotBlank String nome, Long paisId) {
+    public EstadoRequest(@NotBlank String nome, @NotNull Long paisId) {
         this.nome = nome;
         this.paisId = paisId;
     }

@@ -1,7 +1,10 @@
 package com.cdc.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,7 +19,9 @@ public class CategoriaModel {
 
         @Column(name = "nome")
         private String nome;
-        @JsonManagedReference
+        //@JsonBackReference
+        //@JsonManagedReference
+        @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
         @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
         private List<LivroModel> livros;
 
