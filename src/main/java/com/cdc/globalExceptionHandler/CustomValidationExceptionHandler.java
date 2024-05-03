@@ -1,6 +1,7 @@
 package com.cdc.globalExceptionHandler;
 
 import com.cdc.exception.CategoriaExisteException;
+import com.cdc.exception.DocumentoInvalido;
 import com.cdc.exception.EmailExistsException;
 import com.cdc.exception.LivroExistException;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,14 @@ public class CustomValidationExceptionHandler {
     public ResponseEntity<String> livroExistsException(LivroExistException ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
+
+
+    @ExceptionHandler(DocumentoInvalido.class)//1
+    public ResponseEntity<String> DocumentoInvalido(LivroExistException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
+
 
 
 
