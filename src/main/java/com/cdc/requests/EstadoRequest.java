@@ -26,6 +26,10 @@ public class EstadoRequest {
     public EstadoRequest() {
     }
 
+    public EstadoRequest(String nome) {
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

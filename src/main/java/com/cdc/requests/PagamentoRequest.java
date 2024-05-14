@@ -1,10 +1,23 @@
 package com.cdc.requests;
 
+import com.cdc.exception.PaisExistException;
 import com.cdc.model.PaisModel;
+import com.cdc.service.VerificaPaisService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PagamentoRequest {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @PersistenceContext
+    VerificaPaisService verificaPaisService;
+
     @NotBlank
     @Email
     private String email;
@@ -28,15 +41,22 @@ public class PagamentoRequest {
     @NotBlank
     private String cidade;
 
+    //@NotBlank
+    private PaisRequest pais;
+
+
+    @NotNull
+    private EstadoRequest estado;
+
     @NotBlank
-    private PaisModel pais;
-    private String estado;
     private String telefone;
+
+    @NotBlank
     private String cep;
 
     // Criar constructor com todos os atributos e anotações
 
-    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank PaisModel pais, String estado, String telefone, String cep) {
+    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, PaisRequest pais, @NotNull EstadoRequest estado, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -108,19 +128,19 @@ public class PagamentoRequest {
         this.cidade = cidade;
     }
 
-    public PaisModel getPais() {
+    public PaisRequest getPais() {
         return pais;
     }
 
-    public void setPais(PaisModel pais) {
+    public void setPais(PaisRequest pais) {
         this.pais = pais;
     }
 
-    public String getEstado() {
+    public EstadoRequest getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoRequest estado) {
         this.estado = estado;
     }
 
