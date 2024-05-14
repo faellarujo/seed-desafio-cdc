@@ -1,14 +1,12 @@
 package com.cdc.requests;
 
-import com.cdc.exception.PaisExistException;
-import com.cdc.model.PaisModel;
+import com.cdc.model.PagamentoModel;
 import com.cdc.service.VerificaPaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PagamentoRequest {
 
@@ -185,4 +183,7 @@ public class PagamentoRequest {
        return valid;
 
    }
+    public PagamentoModel toModel() {
+        return new PagamentoModel(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais.toModel(), this.estado.toModel(), this.telefone, this.cep);
+    }
 }
