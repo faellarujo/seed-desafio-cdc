@@ -50,6 +50,11 @@ public class CustomValidationExceptionHandler {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 
+    @ExceptionHandler(CarrinhoSemItens.class)//1
+    public ResponseEntity<String> CarrinhoSemItens(CarrinhoSemItens ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
 
 
 
