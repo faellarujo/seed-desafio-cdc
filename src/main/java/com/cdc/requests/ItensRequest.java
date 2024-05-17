@@ -1,16 +1,17 @@
 package com.cdc.requests;
 
-import com.cdc.model.ItenDoCarrinhoModel;
-import com.cdc.validadores.UniqueValue;
-import jakarta.validation.constraints.NotBlank;
+import com.cdc.model.LivroModel;
+import com.cdc.validadores.ExistId;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class ItensRequest {
 
     @NotNull
-    @UniqueValue(domainClass = ItenDoCarrinhoModel.class, fieldName = "idLivro")
+    @ExistId(domainClass = LivroModel.class, fieldName = "id")
     private Long idLivro;
-
+    @NotNull
+    @Min(1)
     private int quantidade;
 
 

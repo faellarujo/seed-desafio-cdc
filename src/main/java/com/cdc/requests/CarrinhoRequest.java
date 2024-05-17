@@ -1,7 +1,9 @@
 package com.cdc.requests;
 
+import com.cdc.model.CarrinhoModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -14,6 +16,7 @@ public class CarrinhoRequest {
     private BigDecimal total;
 
     @Valid
+    @NotEmpty
     private List<ItensRequest> itens;
 
     public CarrinhoRequest() {
@@ -38,6 +41,10 @@ public class CarrinhoRequest {
                 "total=" + total +
                 ", itens=" + itens +
                 '}';
+    }
+
+    public CarrinhoModel toModel() {
+        return new CarrinhoModel(this.total, this.itens);
     }
 
 }
