@@ -2,8 +2,11 @@ package com.cdc.service;
 
 import com.cdc.exception.CarrinhoSemItens;
 import com.cdc.model.CarrinhoModel;
+import com.cdc.model.ItenDoCarrinhoModel;
 import com.cdc.model.LivroModel;
 import com.cdc.requests.CarrinhoRequest;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,6 +14,10 @@ import java.math.BigDecimal;
 
 @Service
 public class CarrinhoService {
+
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     public CarrinhoService() {
     }
@@ -23,15 +30,14 @@ public class CarrinhoService {
         });
     }
 
-
     public BigDecimal valorTotalDosItensDoCarrinho(CarrinhoModel carrinhoModel) {
-        final BigDecimal totalDoCarrinho = carrinhoModel.getTotal();
-        carrinhoModel.getItens().forEach(itenDoCarrinhoModel -> {
-            final BigDecimal valorDoLivro = new BigDecimal(0);
-            final int quantidade = itenDoCarrinhoModel.getQuantidade();
-            final BigDecimal total = valorDoLivro.multiply(new BigDecimal(quantidade));
-            totalDoCarrinho.add(total);
-        });
-        return totalDoCarrinho;
+        BigDecimal totalDoCarrinho = BigDecimal.ZERO;
 
+        for (ItenDoCarrinhoModel itenDoCarrinhoModel : carrinhoModel.getItens()) {
+            LivroModel livroModel = entityManager.find(LivroModel.class, itenDoCarrinhoModel.getIdLivro());
+            BigDecimal valorDoLivro = new BigDecimal(livroModel.getPrecoDoLivro().toString());
+            totalDoCarrinho = totalDoCarrinho.add(valorDoLivro.multiply(BigDecimal.valueOf(itenDoCarrinhoModel.getQuantidade())));
+        }
+
+        return totalDoCarrinho;
     }}

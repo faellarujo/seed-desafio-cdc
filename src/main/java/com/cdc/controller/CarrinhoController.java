@@ -1,6 +1,7 @@
 package com.cdc.controller;
 
 
+import com.cdc.exception.valorTotalDoCarrinhoNaoConfereComValorTotaldaCompra;
 import com.cdc.model.CarrinhoModel;
 import com.cdc.requests.CarrinhoRequest;
 import com.cdc.service.CarrinhoService;
@@ -31,9 +32,10 @@ public class CarrinhoController {
     public ResponseEntity<CarrinhoModel> carrinho(@RequestBody @Valid CarrinhoRequest carrinhoRequest){
         final CarrinhoModel model = carrinhoRequest.toModel();
         final BigDecimal ValorDosItens = carrinhoService.valorTotalDosItensDoCarrinho(model);
+        if (!carrinhoRequest.getTotal().equals(ValorDosItens)){
+            throw new valorTotalDoCarrinhoNaoConfereComValorTotaldaCompra("O valor total do carrinho não confere com o valor total dos itens");
+        }
         entityManager.persist(model);
-
-
-        return ResponseEntity.status(HttpStatus.OK).body(model);
+        return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
 }

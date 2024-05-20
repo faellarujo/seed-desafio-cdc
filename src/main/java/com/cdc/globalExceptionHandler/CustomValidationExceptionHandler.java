@@ -55,6 +55,11 @@ public class CustomValidationExceptionHandler {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 
+    @ExceptionHandler(valorTotalDoCarrinhoNaoConfereComValorTotaldaCompra.class)//1
+    public ResponseEntity<String> valorTotalDoCarrinhoNaoConfereComValorTotaldaCompra(valorTotalDoCarrinhoNaoConfereComValorTotaldaCompra ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
 
 
 
