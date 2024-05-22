@@ -27,15 +27,18 @@ public class Livro {
     private String isbn;
 
     private LocalDate dataDePublicacao;
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Um Livro tem uma categoria
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @ManyToOne(fetch = FetchType.LAZY) // Um Livro tem uma categoria
     @JoinColumn(name = "categoria_id")
+
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
-    @JsonIgnore
     private Categoria categoria;
+
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
+
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Autor autor;
 
@@ -53,6 +56,7 @@ public class Livro {
         this.categoria = categoria;
         this.autor = autor;
     }
+
 
     public Long getId() {
         return id;

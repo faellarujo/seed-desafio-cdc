@@ -1,8 +1,7 @@
 package com.cdc.controller;
 
-import com.cdc.exception.PaisExistException;
-import com.cdc.model.EstadoModel;
-import com.cdc.model.PaisModel;
+import com.cdc.model.Estado;
+import com.cdc.model.Pais;
 import com.cdc.repository.EstadoRepository;
 import com.cdc.requests.EstadoRequest;
 import jakarta.persistence.EntityManager;
@@ -12,9 +11,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class EstadoController {
@@ -26,16 +28,22 @@ public class EstadoController {
     EstadoRepository estadoRepository;
 
     @Autowired
-    public PaisModel paisModel;
+    public Pais pais;
 
-    @PostMapping("/estados")
+    @PostMapping("/estado")
     @Transactional
-    public ResponseEntity<EstadoModel> cadastrarEstado(@RequestBody @Valid EstadoRequest estadoRequest){
-        paisModel = entityManager.find(PaisModel.class, estadoRequest.getPaisId());
-        EstadoModel estadoModel = new EstadoModel(estadoRequest.getNome(), paisModel.getId());
-        estadoModel.setPais(paisModel);
-        entityManager.persist(estadoModel);
-        return ResponseEntity.status(HttpStatus.OK).body(estadoModel);
+    public ResponseEntity<Estado> cadastrarEstado(@RequestBody @Valid EstadoRequest estadoRequest){
+        pais = entityManager.find(Pais.class, estadoRequest.getPaisId());
+        Estado estado = new Estado(estadoRequest.getNome(), pais.getId());
+        estado.setPais(pais);
+        entityManager.persist(estado);
+        return ResponseEntity.status(HttpStatus.OK).body(estado);
+    }
+
+
+    @GetMapping("/estados")
+    public ResponseEntity<List<Estado>> listarEstados(){
+        return ResponseEntity.status(HttpStatus.OK).body(estadoRepository.findAll());
     }
 
 

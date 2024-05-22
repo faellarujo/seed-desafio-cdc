@@ -19,17 +19,17 @@ public class PagamentoModel {
     private String cidade;
 
     @ManyToOne
-    private PaisModel pais;
+    private Pais pais;
 
     @ManyToOne
-    private EstadoModel estado;
+    private Estado estado;
     private String telefone;
     private String cep;
 
     public PagamentoModel() {
     }
 
-    public PagamentoModel(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, PaisModel pais, EstadoModel estado, String telefone, String cep) {
+    public PagamentoModel(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -73,11 +73,11 @@ public class PagamentoModel {
         return cidade;
     }
 
-    public PaisModel getPais() {
+    public Pais getPais() {
         return pais;
     }
 
-    public EstadoModel getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 

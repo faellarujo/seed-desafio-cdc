@@ -1,6 +1,6 @@
 package com.cdc.requests;
 
-import com.cdc.model.PaisModel;
+import com.cdc.model.Pais;
 import com.cdc.validadores.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +9,7 @@ public class PaisRequest {
 
         @NotBlank
         @Size(max = 50)
-        @UniqueValue(domainClass = PaisModel.class, fieldName = "nome")
+        @UniqueValue(domainClass = Pais.class, fieldName = "nome")
         private String nome;
 
         public PaisRequest() {
@@ -27,8 +27,8 @@ public class PaisRequest {
             this.nome = nome;
         }
 
-    public PaisModel toModel() {
-           return new PaisModel(this.nome);
+    public Pais toModel() {
+           return new Pais(this.nome);
 
     }
 }

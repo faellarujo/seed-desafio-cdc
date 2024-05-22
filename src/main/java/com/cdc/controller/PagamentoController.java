@@ -1,9 +1,8 @@
 package com.cdc.controller;
 
 import com.cdc.exception.EstadoExistsException;
-import com.cdc.model.EstadoModel;
 import com.cdc.model.PagamentoModel;
-import com.cdc.model.PaisModel;
+import com.cdc.model.Pais;
 import com.cdc.requests.PagamentoRequest;
 import com.cdc.service.VerificaPaisService;
 import jakarta.validation.Valid;
@@ -26,7 +25,7 @@ public class PagamentoController {
     public ResponseEntity<PagamentoModel> pagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
 
         verificaPaisService.verificaSePaisEstaNaBase(pagamentoRequest.getPais().getNome());
-        final List<PaisModel> paisModels = verificaPaisService.verificaSePaisEstaNaBase(pagamentoRequest.getPais().getNome());
+        final List<Pais> pais = verificaPaisService.verificaSePaisEstaNaBase(pagamentoRequest.getPais().getNome());
 
         if (pagamentoRequest.getEstado().getNome().isEmpty()) {
             throw new EstadoExistsException("Estado não pode ser vazio");

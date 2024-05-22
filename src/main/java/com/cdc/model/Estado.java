@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-public class EstadoModel {
+public class Estado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,19 +14,18 @@ public class EstadoModel {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "pais_id")
-    private PaisModel pais;
+    private Pais pais;
 
-
-    public EstadoModel() {
+    public Estado() {
     }
 
-    public EstadoModel(Long id, String nome, PaisModel pais) {
+    public Estado(Long id, String nome, Pais pais) {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
     }
 
-    public EstadoModel(String nome, Long paisId) {
+    public Estado(String nome, Long paisId) {
         this.nome = nome;
         this.pais = pais;
     }
@@ -39,11 +38,11 @@ public class EstadoModel {
         return nome;
     }
 
-    public PaisModel getPais() {
+    public Pais getPais() {
         return pais;
     }
 
-    public void setPais(PaisModel pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
 }

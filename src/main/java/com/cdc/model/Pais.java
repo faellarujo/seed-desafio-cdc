@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class PaisModel {
+public class Pais {
 
 
     @Id
@@ -16,25 +16,23 @@ public class PaisModel {
     private String nome;
 
     @JsonBackReference
-    //@JsonManagedReference
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
-    private List<EstadoModel> estados;
+    private List<Estado> estados;
 
-    public PaisModel() {
+    public Pais() {
     }
 
-    public PaisModel(Long id, String nome, List<EstadoModel> estado) {
+    public Pais(Long id, String nome, List<Estado> estado) {
         this.id = id;
         this.nome = nome;
         this.estados = estado;
     }
 
-    public PaisModel(String nome) {
+    public Pais(String nome) {
         this.nome = nome;
     }
 
-    public PaisModel(Long paisId) {
+    public Pais(Long paisId) {
 
     }
 
@@ -42,15 +40,15 @@ public class PaisModel {
         this.nome = nome;
     }
 
-    public List<EstadoModel> getEstado() {
+    public List<Estado> getEstado() {
         return estados;
     }
 
-    public void setEstado(List<EstadoModel> estado) {
+    public void setEstado(List<Estado> estado) {
         this.estados = estado;
     }
 
-    public PaisModel(Long id, String nome) {
+    public Pais(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

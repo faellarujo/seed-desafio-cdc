@@ -17,8 +17,7 @@ public class Categoria {
 
         @Column(name = "nome")
         private String nome;
-        //@JsonBackReference
-        //@JsonManagedReference
+
         @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
         @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
         private List<Livro> livros;

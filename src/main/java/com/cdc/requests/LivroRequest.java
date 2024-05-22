@@ -4,6 +4,7 @@ import com.cdc.model.Autor;
 import com.cdc.model.Categoria;
 import com.cdc.model.Livro;
 import com.cdc.validadores.ExistId;
+import com.cdc.validadores.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -24,9 +25,11 @@ public class LivroRequest {
     EntityManager entityManager;
 
     @NotBlank
+    @UniqueValue(domainClass = Livro.class, fieldName = "titulo")
     private String titulo;
 
     @NotBlank
+    @Size(max = 500)
     private String resumo;
 
     @NotBlank
@@ -38,9 +41,11 @@ public class LivroRequest {
     private BigDecimal preco;
 
     @NotNull
+    @Min(100)
     private int numeroPaginas;
 
     @NotBlank
+    @UniqueValue(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
 
     @Future
@@ -81,6 +86,8 @@ public class LivroRequest {
         this.idAutor = idAutor;
         this.idCategoria = idCategoria;
     }
+
+
 
     public String getTitulo() {
         return titulo;
@@ -129,4 +136,5 @@ public class LivroRequest {
         Assert.state(categoria != null, "Você está querendo cadastrar um livro para uma categoria que não existe no banco " + idCategoria);
         return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn, this.dataPublicacao, categoria, autor);
     }
+
 }

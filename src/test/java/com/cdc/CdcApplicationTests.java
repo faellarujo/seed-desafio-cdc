@@ -1,7 +1,7 @@
 package com.cdc;
 
-import com.cdc.model.EstadoModel;
-import com.cdc.model.PaisModel;
+import com.cdc.model.Estado;
+import com.cdc.model.Pais;
 import com.cdc.service.VerificaPaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -26,8 +26,8 @@ class CdcApplicationTests {
 	void contextLoads() {
 
 		final VerificaPaisService verificaPaisService = new VerificaPaisService(entityManager);
-		final List<PaisModel> portugal = verificaPaisService.veririfaPais(	"Portugal");
-		final List<EstadoModel> braga = verificaPaisService.verificaEstadoExist("Braga");
+		final List<Pais> portugal = verificaPaisService.veririfaPais(	"Portugal");
+		final List<Estado> braga = verificaPaisService.verificaEstadoExist("Braga");
 
 		System.out.println(portugal);
 

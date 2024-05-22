@@ -2,7 +2,7 @@ package com.cdc.config;
 
 import com.cdc.model.Autor;
 import com.cdc.model.Categoria;
-import com.cdc.model.PaisModel;
+import com.cdc.model.Pais;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -19,8 +19,8 @@ public class Beans {
     }
 
     @org.springframework.context.annotation.Bean
-    public PaisModel paisModel(){
-        return new PaisModel();
+    public Pais paisModel(){
+        return new Pais();
     }
 
 
