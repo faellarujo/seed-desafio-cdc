@@ -28,16 +28,16 @@ public class Livro {
 
     private LocalDate dataDePublicacao;
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Um Livro tem uma categoria
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Um Livro tem uma categoria
     @JoinColumn(name = "categoria_id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     @JsonIgnore
     private Categoria categoria;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToMany(fetch = FetchType.LAZY) // Um Autor tem um livro
-    @JoinTable(name = "autores_livros",
-            joinColumns = @JoinColumn(name = "autor_id"),
-            inverseJoinColumns = @JoinColumn(name = "livro_id"))
-    private List<Autor> autor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private Autor autor;
 
     public Livro() {
     }
@@ -51,7 +51,7 @@ public class Livro {
         this.isbn = isbn;
         this.dataDePublicacao = dataDePublicacao;
         this.categoria = categoria;
-        this.autor = List.of(autor);
+        this.autor = autor;
     }
 
     public Long getId() {
@@ -123,11 +123,11 @@ public class Livro {
     }
 
     public Autor getAutor() {
-        return autor.get(0);
+        return autor;
     }
 
     public void setAutor(Autor autor) {
-        this.autor = List.of(autor);
+        this.autor = autor;
     }
 }
 

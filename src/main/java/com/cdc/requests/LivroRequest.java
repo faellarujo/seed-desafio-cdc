@@ -3,6 +3,7 @@ package com.cdc.requests;
 import com.cdc.model.Autor;
 import com.cdc.model.Categoria;
 import com.cdc.model.Livro;
+import com.cdc.validadores.ExistId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -50,9 +51,11 @@ public class LivroRequest {
     private LocalDate dataPublicacao;
 
     @NotNull
+    @ExistId(domainClass = Categoria.class, fieldName = "id")
     private Long idCategoria;
 
     @NotNull
+    @ExistId(domainClass = Autor.class, fieldName = "id")
     private Long idAutor;
 
 
@@ -120,8 +123,8 @@ public class LivroRequest {
     }
 
     public Livro toModel(EntityManager entityManager) {
-        Autor autor = entityManager.find(Autor.class, idAutor);
-        Categoria categoria = entityManager.find(Categoria.class, idCategoria);
+        @NotNull Autor autor = entityManager.find(Autor.class, idAutor);
+        @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
         Assert.state(autor != null, "Você está querendo cadastrar um livro para um autor que não existe no banco " + idAutor);
         Assert.state(categoria != null, "Você está querendo cadastrar um livro para uma categoria que não existe no banco " + idCategoria);
         return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn, this.dataPublicacao, categoria, autor);

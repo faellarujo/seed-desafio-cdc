@@ -29,7 +29,7 @@ public class Autor {
     private LocalDateTime instante = LocalDateTime.now();
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToMany(mappedBy = "autor")
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
     private List<Livro> livro;
 
     public Long getId() {
