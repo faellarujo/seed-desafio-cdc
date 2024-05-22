@@ -1,6 +1,6 @@
 package com.cdc.requests;
 
-import com.cdc.model.LivroModel;
+import com.cdc.model.Livro;
 import com.cdc.validadores.ExistId;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class ItensRequest {
 
     @NotNull
-    @ExistId(domainClass = LivroModel.class, fieldName = "id")
+    @ExistId(domainClass = Livro.class, fieldName = "id")
     private Long idLivro;
     @NotNull
     @Min(1)

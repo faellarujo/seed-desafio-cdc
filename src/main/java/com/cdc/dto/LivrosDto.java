@@ -1,6 +1,6 @@
 package com.cdc.dto;
 
-import com.cdc.model.LivroModel;
+import com.cdc.model.Livro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +18,11 @@ public class LivrosDto {
     }
 
     public static List<LivrosDto> toDto(List selectLFromLivroModelL) {
-        List<LivroModel> livroModels = new ArrayList<>();   //1
-        livroModels.addAll(selectLFromLivroModelL);
+        List<Livro> livros = new ArrayList<>();   //1
+        livros.addAll(selectLFromLivroModelL);
         List<LivrosDto> livrosDto = new ArrayList<>();
 
-        livroModels.stream().forEach(livro -> { //1
+        livros.stream().forEach(livro -> { //1
             LivrosDto livroDto = new LivrosDto();
             livroDto.id = livro.getId();
             livroDto.titulo = livro.getTitulo();

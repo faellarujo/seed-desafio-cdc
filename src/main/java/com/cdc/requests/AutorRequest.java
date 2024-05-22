@@ -1,6 +1,6 @@
 package com.cdc.requests;
 
-import com.cdc.model.AutorModel;
+import com.cdc.model.Autor;
 import com.cdc.validadores.UniqueValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,11 +14,10 @@ public class AutorRequest {
     @NotBlank
     private String nome;
 
-
     @Email(message = "Email inválido")
     @Size(max = 50)
     @NotBlank
-    @UniqueValue(domainClass = AutorModel.class, fieldName = "email")
+    @UniqueValue(domainClass = Autor.class, fieldName = "email")
     private String email;
 
 
@@ -70,7 +69,7 @@ public class AutorRequest {
         return instante;
     }
 
-    public AutorModel toModel() {
-        return new AutorModel(this.nome, this.email, this.descricao, this.instante);
+    public Autor toModel() {
+        return new Autor(this.nome, this.email, this.descricao, this.instante);
     }
 }

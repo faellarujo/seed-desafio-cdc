@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueValue {
-    String message() default "Campo duplicado!!!";
+    String message() default "Essa Informação já está cadastrada no sistema";
 
     Class<?>[] groups() default {};
 

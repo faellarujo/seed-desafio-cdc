@@ -1,7 +1,7 @@
 package com.cdc.config;
 
-import com.cdc.model.AutorModel;
-import com.cdc.model.CategoriaModel;
+import com.cdc.model.Autor;
+import com.cdc.model.Categoria;
 import com.cdc.model.PaisModel;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 public class Beans {
 
     @org.springframework.context.annotation.Bean
-    public AutorModel autorModel(){
-        return new AutorModel();
+    public Autor autorModel(){
+        return new Autor();
     }
 
     @org.springframework.context.annotation.Bean
-    public CategoriaModel categoriaModel(){
-        return new CategoriaModel();
+    public Categoria categoriaModel(){
+        return new Categoria();
     }
 
     @org.springframework.context.annotation.Bean

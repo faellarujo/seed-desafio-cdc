@@ -2,7 +2,6 @@ package com.cdc.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class AutorModel {
+public class Autor {
 
     @Id
     @Column(name = "autor_id")
@@ -31,7 +30,7 @@ public class AutorModel {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(mappedBy = "autor")
-    private List<LivroModel> livroModel;
+    private List<Livro> livro;
 
     public Long getId() {
         return id;
@@ -45,18 +44,18 @@ public class AutorModel {
         this.instante = instante;
     }
 
-    public List<LivroModel> getLivroModel() {
-        return livroModel;
+    public List<Livro> getLivroModel() {
+        return livro;
     }
 
-    public void setLivroModel(List<LivroModel> livroModel) {
-        this.livroModel = livroModel;
+    public void setLivroModel(List<Livro> livro) {
+        this.livro = livro;
     }
 
-    public AutorModel() {
+    public Autor() {
     }
 
-    public AutorModel(String nome, String email, String descricao, LocalDateTime instante) {
+    public Autor(String nome, String email, String descricao, LocalDateTime instante) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;

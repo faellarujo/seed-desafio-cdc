@@ -1,8 +1,8 @@
 package com.cdc.requests;
 
-import com.cdc.model.AutorModel;
-import com.cdc.model.CategoriaModel;
-import com.cdc.model.LivroModel;
+import com.cdc.model.Autor;
+import com.cdc.model.Categoria;
+import com.cdc.model.Livro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -119,11 +119,11 @@ public class LivroRequest {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public LivroModel toModel(EntityManager entityManager) {
-        AutorModel autorModel = entityManager.find(AutorModel.class, idAutor);
-        CategoriaModel categoriaModel = entityManager.find(CategoriaModel.class, idCategoria);
-        Assert.state(autorModel != null, "Você está querendo cadastrar um livro para um autor que não existe no banco " + idAutor);
-        Assert.state(categoriaModel != null, "Você está querendo cadastrar um livro para uma categoria que não existe no banco " + idCategoria);
-        return new LivroModel(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn, this.dataPublicacao, categoriaModel, autorModel);
+    public Livro toModel(EntityManager entityManager) {
+        Autor autor = entityManager.find(Autor.class, idAutor);
+        Categoria categoria = entityManager.find(Categoria.class, idCategoria);
+        Assert.state(autor != null, "Você está querendo cadastrar um livro para um autor que não existe no banco " + idAutor);
+        Assert.state(categoria != null, "Você está querendo cadastrar um livro para uma categoria que não existe no banco " + idCategoria);
+        return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn, this.dataPublicacao, categoria, autor);
     }
 }

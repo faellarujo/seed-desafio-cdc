@@ -1,16 +1,14 @@
 package com.cdc.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class CategoriaModel {
+public class Categoria {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,24 +21,24 @@ public class CategoriaModel {
         //@JsonManagedReference
         @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
         @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
-        private List<LivroModel> livros;
+        private List<Livro> livros;
 
         public void setNome(String nome) {
                 this.nome = nome;
         }
 
-        public List<LivroModel> getLivros() {
+        public List<Livro> getLivros() {
                 return livros;
         }
 
-        public void setLivros(List<LivroModel> livros) {
+        public void setLivros(List<Livro> livros) {
                 this.livros = livros;
         }
 
-        public CategoriaModel() {
+        public Categoria() {
         }
 
-        public CategoriaModel(String nome) {
+        public Categoria(String nome) {
             this.nome = nome;
         }
 

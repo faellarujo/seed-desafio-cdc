@@ -2,7 +2,7 @@ package com.cdc.controller;
 
 
 import com.cdc.requests.CategoriaRequest;
-import com.cdc.model.CategoriaModel;
+import com.cdc.model.Categoria;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -20,8 +20,8 @@ public class CategoriaController {
     EntityManager entityManager;
    @PostMapping("/categorias")
    @Transactional
-   public ResponseEntity<CategoriaModel> saveProduct(@RequestBody @Valid CategoriaRequest categoriaRequest){
-       CategoriaModel model = categoriaRequest.toModel();
+   public ResponseEntity<Categoria> saveProduct(@RequestBody @Valid CategoriaRequest categoriaRequest){
+       Categoria model = categoriaRequest.toModel();
        entityManager.persist(model);
        return ResponseEntity.status(HttpStatus.OK).body(model);
     }

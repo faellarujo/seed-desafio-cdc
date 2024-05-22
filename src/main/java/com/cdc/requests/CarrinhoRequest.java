@@ -26,7 +26,6 @@ public class CarrinhoRequest {
         this.total = total;
         this.itens = itens;
     }
-
     public BigDecimal getTotal() {
         return total;
     }
@@ -34,7 +33,6 @@ public class CarrinhoRequest {
     public List<ItensRequest> getItens() {
         return itens;
     }
-
     @Override
     public String toString() {
         return "CarrinhoRequest{" +

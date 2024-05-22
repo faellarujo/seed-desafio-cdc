@@ -2,7 +2,7 @@ package com.cdc.controller;
 
 
 import com.cdc.requests.AutorRequest;
-import com.cdc.model.AutorModel;
+import com.cdc.model.Autor;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -28,9 +28,10 @@ public class AutorController {
     EntityManager entityManager;
     @PostMapping("/autores")
     @Transactional
-    public ResponseEntity<AutorModel> saveProduct(@RequestBody @Valid AutorRequest autorRequest) {
-        AutorModel model = autorRequest.toModel();
+    public ResponseEntity<Autor> saveProduct(@RequestBody @Valid AutorRequest autorRequest) {
+        Autor model = autorRequest.toModel();
         entityManager.persist(model);
         return ResponseEntity.status(HttpStatus.OK).body(model);
+
     }
 }

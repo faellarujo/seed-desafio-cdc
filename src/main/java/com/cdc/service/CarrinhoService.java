@@ -3,7 +3,7 @@ package com.cdc.service;
 import com.cdc.exception.CarrinhoSemItens;
 import com.cdc.model.CarrinhoModel;
 import com.cdc.model.ItenDoCarrinhoModel;
-import com.cdc.model.LivroModel;
+import com.cdc.model.Livro;
 import com.cdc.requests.CarrinhoRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -34,8 +34,8 @@ public class CarrinhoService {
         BigDecimal totalDoCarrinho = BigDecimal.ZERO;
 
         for (ItenDoCarrinhoModel itenDoCarrinhoModel : carrinhoModel.getItens()) {
-            LivroModel livroModel = entityManager.find(LivroModel.class, itenDoCarrinhoModel.getIdLivro());
-            BigDecimal valorDoLivro = new BigDecimal(livroModel.getPrecoDoLivro().toString());
+            Livro livro = entityManager.find(Livro.class, itenDoCarrinhoModel.getIdLivro());
+            BigDecimal valorDoLivro = new BigDecimal(livro.getPrecoDoLivro().toString());
             totalDoCarrinho = totalDoCarrinho.add(valorDoLivro.multiply(BigDecimal.valueOf(itenDoCarrinhoModel.getQuantidade())));
         }
 

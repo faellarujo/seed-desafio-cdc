@@ -2,15 +2,13 @@ package com.cdc.model;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
-public class LivroModel {
+public class Livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,18 +31,18 @@ public class LivroModel {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Um Livro tem uma categoria
     @JoinColumn(name = "categoria_id")
     @JsonIgnore
-    private CategoriaModel categoria;
+    private Categoria categoria;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(fetch = FetchType.LAZY) // Um Autor tem um livro
     @JoinTable(name = "autores_livros",
             joinColumns = @JoinColumn(name = "autor_id"),
             inverseJoinColumns = @JoinColumn(name = "livro_id"))
-    private List<AutorModel> autor;
+    private List<Autor> autor;
 
-    public LivroModel() {
+    public Livro() {
     }
 
-    public LivroModel(String titulo, String resumo, String sumario, BigDecimal precoDoLivro, Integer numeroDePaginas, String isbn, LocalDate dataDePublicacao, CategoriaModel categoria, AutorModel autor) {
+    public Livro(String titulo, String resumo, String sumario, BigDecimal precoDoLivro, Integer numeroDePaginas, String isbn, LocalDate dataDePublicacao, Categoria categoria, Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -116,19 +114,19 @@ public class LivroModel {
         this.dataDePublicacao = dataDePublicacao;
     }
 
-    public CategoriaModel getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaModel categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public AutorModel getAutor() {
+    public Autor getAutor() {
         return autor.get(0);
     }
 
-    public void setAutor(AutorModel autor) {
+    public void setAutor(Autor autor) {
         this.autor = List.of(autor);
     }
 }

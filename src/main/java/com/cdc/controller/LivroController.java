@@ -4,7 +4,7 @@ package com.cdc.controller;
 import com.cdc.dto.LivrosDto;
 import com.cdc.exception.LivroExistException;
 import com.cdc.requests.LivroRequest;
-import com.cdc.model.LivroModel;
+import com.cdc.model.Livro;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -25,15 +25,15 @@ public class LivroController {
 
     @PostMapping("/livros")
     @Transactional
-    public ResponseEntity<LivroModel> cadastrarLivro(@RequestBody @Valid LivroRequest livroRequest) {
-        LivroModel livro = livroRequest.toModel(entityManager);
+    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid LivroRequest livroRequest) {
+        Livro livro = livroRequest.toModel(entityManager);
         entityManager.persist(livro);
         return ResponseEntity.status(HttpStatus.OK).body(livro);
     }
 
     @GetMapping("/livros")
     public ResponseEntity<List<LivrosDto>> listarLivros() {
-        final List selectLFromLivroModelL = entityManager.createQuery("select l from LivroModel l").getResultList();
+        final List selectLFromLivroModelL = entityManager.createQuery("select l from Livro l").getResultList();
         final LivrosDto LivrosDto = new LivrosDto(); //1
         List<LivrosDto> livrosDto = new ArrayList<>(LivrosDto.toDto(selectLFromLivroModelL));
     return ResponseEntity.status(HttpStatus.OK).body(livrosDto);
@@ -41,14 +41,14 @@ public class LivroController {
 
 
     @GetMapping("/livros/{id}")
-    public ResponseEntity<LivroModel> listaDetalhesLivro(@PathVariable Long id) {
+    public ResponseEntity<Livro> listaDetalhesLivro(@PathVariable Long id) {
 
-        final LivroModel livroModel = entityManager.find(LivroModel.class, id);
-        if(livroModel == null) { //1
+        final Livro livro = entityManager.find(Livro.class, id);
+        if(livro == null) { //1
             ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             throw new LivroExistException("Livro não encontrado");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(livroModel);
+        return ResponseEntity.status(HttpStatus.OK).body(livro);
     }
 
 }

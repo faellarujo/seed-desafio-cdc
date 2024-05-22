@@ -1,6 +1,6 @@
 package com.cdc.requests;
 
-import com.cdc.model.CategoriaModel;
+import com.cdc.model.Categoria;
 import com.cdc.validadores.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 
@@ -9,7 +9,7 @@ public class CategoriaRequest {
     private Long id;
 
     @NotBlank
-    @UniqueValue(domainClass = CategoriaModel.class, fieldName = "nome")
+    @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
 
 
@@ -33,7 +33,7 @@ public class CategoriaRequest {
         this.nome = nome;
     }
 
-    public CategoriaModel toModel() {
-        return new CategoriaModel(this.nome);
+    public Categoria toModel() {
+        return new Categoria(this.nome);
     }
 }
