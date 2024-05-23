@@ -4,7 +4,7 @@ package com.cdc.model;
 import jakarta.persistence.*;
 
 @Entity
-public class PagamentoModel {
+public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,19 +17,15 @@ public class PagamentoModel {
     private String endereco;
     private String complemento;
     private String cidade;
-
-    @ManyToOne
-    private Pais pais;
-
-    @ManyToOne
-    private Estado estado;
+    private Long  id_pais;
+    private Long  id_estado;
     private String telefone;
     private String cep;
 
-    public PagamentoModel() {
+    public Pagamento() {
     }
 
-    public PagamentoModel(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep) {
+    public Pagamento(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long id_pais, Long id_estado, String telefone, String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -37,13 +33,11 @@ public class PagamentoModel {
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
-        this.pais = pais;
-        this.estado = estado;
+        this.id_pais = id_pais;
+        this.id_estado = id_estado;
         this.telefone = telefone;
         this.cep = cep;
     }
-
-
 
     public String getEmail() {
         return email;
@@ -73,12 +67,12 @@ public class PagamentoModel {
         return cidade;
     }
 
-    public Pais getPais() {
-        return pais;
+    public Long getPais() {
+        return id_pais;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Long getEstado() {
+        return id_estado;
     }
 
     public String getTelefone() {

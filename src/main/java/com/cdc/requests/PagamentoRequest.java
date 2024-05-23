@@ -1,14 +1,15 @@
 package com.cdc.requests;
 
-import com.cdc.model.PagamentoModel;
+
+import com.cdc.model.Pagamento;
 import com.cdc.service.VerificaPaisService;
+import com.cdc.validadores.Documento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
-public class PagamentoRequest {
+public class    PagamentoRequest {
 
     @PersistenceContext
     EntityManager entityManager;
@@ -27,6 +28,7 @@ public class PagamentoRequest {
     private String sobrenome;
 
     @NotBlank
+    @Documento(domainClass = PagamentoRequest.class, fieldName = "documento")
     private String documento;
 
 
@@ -39,12 +41,11 @@ public class PagamentoRequest {
     @NotBlank
     private String cidade;
 
-    //@NotBlank
-    private PaisRequest pais;
 
+    @NotBlank
+    private String pais;
 
-    @NotNull
-    private EstadoRequest estado;
+    private String estado;
 
     @NotBlank
     private String telefone;
@@ -52,13 +53,11 @@ public class PagamentoRequest {
     @NotBlank
     private String cep;
 
-    // Criar constructor com todos os atributos e anotações
-
-    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, PaisRequest pais, @NotNull EstadoRequest estado, @NotBlank String telefone, @NotBlank String cep) {
+    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank String pais,  String estado, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.documento = DocumentoRequest.isValid(documento);
+        this.documento = documento;
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
@@ -67,8 +66,6 @@ public class PagamentoRequest {
         this.telefone = telefone;
         this.cep = cep;
     }
-
-    // Criar getters e setters
 
     public String getEmail() {
         return email;
@@ -126,19 +123,19 @@ public class PagamentoRequest {
         this.cidade = cidade;
     }
 
-    public PaisRequest getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public void setPais(PaisRequest pais) {
+    public void setPais(String pais) {
         this.pais = pais;
     }
 
-    public EstadoRequest getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoRequest estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -177,13 +174,7 @@ public class PagamentoRequest {
                 '}';
     }
 
-
-   public String verificaDocumento(String documento) {
-       final String valid = DocumentoRequest.isValid(documento);
-       return valid;
-
-   }
-    public PagamentoModel toModel() {
-        return new PagamentoModel(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais.toModel(), this.estado.toModel(), this.telefone, this.cep);
-    }
+//    public Pagamento toModel() {
+//        return new Pagamento(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais, this.estado, this.telefone, this.cep);
+//    }
 }
