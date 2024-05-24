@@ -1,16 +1,15 @@
 package com.cdc.controller;
 
 import com.cdc.exception.EstadoExistsException;
-import com.cdc.exception.PaisExistException;
-import com.cdc.model.Pagamento;
+import com.cdc.model.Estado;
 import com.cdc.model.Pais;
 import com.cdc.requests.PagamentoRequest;
 import com.cdc.service.VerificaPaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,18 +28,19 @@ public class PagamentoController {
     EntityManager entityManager;
 
     @PostMapping("/pagamento")
+    @Transactional
     public String pagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
 
-        List<Pais> listaPais = new ArrayList<>();
-        listaPais = verificaPaisService.verificaSePaisEstaNaBase(pagamentoRequest.getPais());
+        verificaSeOPaisPossuiEstadosCadastrados(pagamentoRequest);
+        return pagamentoRequest.toString();
 
-        if (pagamentoRequest.getEstado().isEmpty()) {
+    }
+
+    private void verificaSeOPaisPossuiEstadosCadastrados(PagamentoRequest pagamentoRequest) {
+        List<Estado> listaEstados = new ArrayList<>(verificaPaisService.carregarEstadosDoPais(pagamentoRequest.getPais()));
+        if (listaEstados.size() > 0 && pagamentoRequest.getEstado() == null) {
             throw new EstadoExistsException("Estado não pode ser vazio");
         }
-        //final Pagamento pagamento = pagamentoRequest.toModel();
-       // return ResponseEntity.ok().body(pagamento);
-
-        return "";
     }
 
 

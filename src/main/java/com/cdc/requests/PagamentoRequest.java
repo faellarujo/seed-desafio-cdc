@@ -1,13 +1,17 @@
 package com.cdc.requests;
 
 
+import com.cdc.model.Estado;
 import com.cdc.model.Pagamento;
+import com.cdc.model.Pais;
 import com.cdc.service.VerificaPaisService;
 import com.cdc.validadores.Documento;
+import com.cdc.validadores.ExistId;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class    PagamentoRequest {
 
@@ -41,11 +45,12 @@ public class    PagamentoRequest {
     @NotBlank
     private String cidade;
 
+    @NotNull
+    @ExistId(domainClass = Pais.class, fieldName = "id")
+    private Long id_pais;
 
-    @NotBlank
-    private String pais;
-
-    private String estado;
+    @ExistId(domainClass = Estado.class, fieldName = "id")
+    private Long id_estado;
 
     @NotBlank
     private String telefone;
@@ -53,7 +58,7 @@ public class    PagamentoRequest {
     @NotBlank
     private String cep;
 
-    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank String pais,  String estado, @NotBlank String telefone, @NotBlank String cep) {
+    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais,  Long id_estado, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -61,8 +66,8 @@ public class    PagamentoRequest {
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
-        this.pais = pais;
-        this.estado = estado;
+        this.id_pais = id_pais;
+        this.id_estado = id_estado;
         this.telefone = telefone;
         this.cep = cep;
     }
@@ -123,20 +128,20 @@ public class    PagamentoRequest {
         this.cidade = cidade;
     }
 
-    public String getPais() {
-        return pais;
+    public Long getPais() {
+        return id_pais;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setPais(Long pais) {
+        this.id_pais = pais;
     }
 
-    public String getEstado() {
-        return estado;
+    public Long getEstado() {
+        return id_estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(Long estado) {
+        this.id_estado = estado;
     }
 
     public String getTelefone() {
@@ -167,8 +172,8 @@ public class    PagamentoRequest {
                 ", endereco='" + endereco + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", cidade='" + cidade + '\'' +
-                ", pais='" + pais + '\'' +
-                ", estado='" + estado + '\'' +
+                ", pais='" + id_pais + '\'' +
+                ", estado='" + id_estado + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
                 '}';

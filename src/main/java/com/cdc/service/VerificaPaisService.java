@@ -19,18 +19,10 @@ public class VerificaPaisService {
         this.entityManager = entityManager;
     }
 
-    public List<Pais> verificaSePaisEstaNaBase(String nome) {
-               final List Paises = entityManager.createQuery("select p from Pais p where p.nome = :nome")
-                .setParameter("nome", nome)
+    public List<Estado> carregarEstadosDoPais(long id_pais) {
+        return entityManager.createQuery("select e from Estado e where e.pais.id = :id_pais", Estado.class)
+                .setParameter("id_pais", id_pais)
                 .getResultList();
-        return Paises;
-    }
-
-    public List<Estado> carregarEstadosDoPais(String nome) {
-        final List Estados = entityManager.createQuery("select p from Estado p where p.nome = :nome")
-                .setParameter("nome", nome)
-                .getResultList();
-        return Estados;
     }
 
 }
