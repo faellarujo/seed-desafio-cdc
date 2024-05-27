@@ -61,6 +61,12 @@ public class CustomValidationExceptionHandler {
     }
 
 
+    @ExceptionHandler(ValorIncorretoException.class)//1
+    public ResponseEntity<String> IllegalStateException(ValorIncorretoException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
+
 
 
 

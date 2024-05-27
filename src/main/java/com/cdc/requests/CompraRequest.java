@@ -2,18 +2,18 @@ package com.cdc.requests;
 
 
 import com.cdc.model.Estado;
-import com.cdc.model.Pagamento;
 import com.cdc.model.Pais;
 import com.cdc.service.VerificaPaisService;
 import com.cdc.validadores.Documento;
 import com.cdc.validadores.ExistId;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class    PagamentoRequest {
+public class  CompraRequest {
 
     @PersistenceContext
     EntityManager entityManager;
@@ -32,7 +32,7 @@ public class    PagamentoRequest {
     private String sobrenome;
 
     @NotBlank
-    @Documento(domainClass = PagamentoRequest.class, fieldName = "documento")
+    @Documento(domainClass = CompraRequest.class, fieldName = "documento")
     private String documento;
 
 
@@ -58,7 +58,10 @@ public class    PagamentoRequest {
     @NotBlank
     private String cep;
 
-    public PagamentoRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais,  Long id_estado, @NotBlank String telefone, @NotBlank String cep) {
+    @Valid
+    private PedidoRequest pedido;
+
+    public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais,  Long id_estado, @NotBlank String telefone, @NotBlank String cep, @Valid PedidoRequest pedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -70,6 +73,7 @@ public class    PagamentoRequest {
         this.id_estado = id_estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = pedido;
     }
 
     public String getEmail() {
@@ -160,26 +164,39 @@ public class    PagamentoRequest {
         this.cep = cep;
     }
 
+    public PedidoRequest getPedidoRequest() {
+        return pedido;
+    }
+
+    public void setPedidoRequest(PedidoRequest pedido) {
+        this.pedido = pedido;
+    }
+
+
     // Criar método toString
 
     @Override
     public String toString() {
-        return "PagamentoRequest{" +
-                "email='" + email + '\'' +
+        return "CompraRequest{" +
+                "entityManager=" + entityManager +
+                ", verificaPaisService=" + verificaPaisService +
+                ", email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", sobrenome='" + sobrenome + '\'' +
-                ", documento=" + documento +
+                ", documento='" + documento + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", cidade='" + cidade + '\'' +
-                ", pais='" + id_pais + '\'' +
-                ", estado='" + id_estado + '\'' +
+                ", id_pais=" + id_pais +
+                ", id_estado=" + id_estado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
+                ", pedidoRequest=" + pedido +
                 '}';
     }
 
-//    public Pagamento toModel() {
-//        return new Pagamento(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais, this.estado, this.telefone, this.cep);
+
+//    public Compra toModel() {
+//        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais, this.estado, this.telefone, this.cep);
 //    }
 }

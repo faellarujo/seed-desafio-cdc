@@ -14,8 +14,6 @@ public class ItensRequest {
     @Min(1)
     private int quantidade;
 
-
-
     public ItensRequest() {
     }
 

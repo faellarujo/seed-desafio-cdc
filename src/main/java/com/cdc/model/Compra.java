@@ -4,7 +4,7 @@ package com.cdc.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Pagamento {
+public class Compra{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,10 @@ public class Pagamento {
     private String telefone;
     private String cep;
 
-    public Pagamento() {
+    public Compra() {
     }
 
-    public Pagamento(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long id_pais, Long id_estado, String telefone, String cep) {
+    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long id_pais, Long id_estado, String telefone, String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
