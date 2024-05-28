@@ -17,15 +17,19 @@ public class Compra{
     private String endereco;
     private String complemento;
     private String cidade;
-    private Long  id_pais;
-    private Long  id_estado;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pais_id")
+    private Pais pais;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "estado_id")
+    private Estado estado;
     private String telefone;
     private String cep;
 
-    public Compra() {
-    }
-
-    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long id_pais, Long id_estado, String telefone, String cep) {
+    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -33,10 +37,13 @@ public class Compra{
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
-        this.id_pais = id_pais;
-        this.id_estado = id_estado;
+        this.pais = pais;
+        this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+    }
+
+    public Compra() {
     }
 
     public String getEmail() {
@@ -67,12 +74,21 @@ public class Compra{
         return cidade;
     }
 
-    public Long getPais() {
-        return id_pais;
+
+    public Pais getPaisObj() {
+        return pais;
     }
 
-    public Long getEstado() {
-        return id_estado;
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public Estado getEstadoObj() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public String getTelefone() {
@@ -83,5 +99,24 @@ public class Compra{
         return cep;
     }
 
+    @Override
+    public String toString() {
+        return "Compra{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", documento='" + documento + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", pais=" + pais +
+                ", estado=" + estado +
+                ", telefone='" + telefone + '\'' +
+                ", cep='" + cep + '\'' +
+                '}';
+    }
 
 }
+
+

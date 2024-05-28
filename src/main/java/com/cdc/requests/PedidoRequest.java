@@ -62,4 +62,6 @@ public class PedidoRequest {
             throw new ValorIncorretoException("O valor total da compra não confere com o valor total dos itens do pedido");
         }//1
     }
+
+
 }

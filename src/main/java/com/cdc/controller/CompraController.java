@@ -2,6 +2,7 @@ package com.cdc.controller;
 
 import com.cdc.exception.EstadoExistsException;
 import com.cdc.exception.ValorIncorretoException;
+import com.cdc.model.Compra;
 import com.cdc.model.Estado;
 import com.cdc.requests.CompraRequest;
 import com.cdc.service.PedidoService;
@@ -11,6 +12,9 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,11 +36,12 @@ public class CompraController {
 
     @PostMapping("/compra")
     @Transactional
-    public String compra(@RequestBody @Valid CompraRequest compraRequest) {
+    public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
-
-        return compraRequest.toString();
+        final Compra compra = compraRequest.toModel();
+        entityManager.persist(compra);
+        return ResponseEntity.status(HttpStatus.OK).body(compra);
     }
 
     private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {

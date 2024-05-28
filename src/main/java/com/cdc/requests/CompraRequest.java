@@ -1,7 +1,7 @@
 package com.cdc.requests;
 
 
-import com.cdc.exception.ValorIncorretoException;
+import com.cdc.model.Compra;
 import com.cdc.model.Estado;
 import com.cdc.model.Pais;
 import com.cdc.service.VerificaPaisService;
@@ -174,32 +174,9 @@ public class  CompraRequest {
     }
 
 
-    // Criar método toString
-
-    @Override
-    public String toString() {
-        return "CompraRequest{" +
-                "entityManager=" + entityManager +
-                ", verificaPaisService=" + verificaPaisService +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", documento='" + documento + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", id_pais=" + id_pais +
-                ", id_estado=" + id_estado +
-                ", telefone='" + telefone + '\'' +
-                ", cep='" + cep + '\'' +
-                ", pedidoRequest=" + pedido +
-                '}';
+    public Compra toModel() {
+        final Pais pais = new Pais(this.id_pais);
+        final Estado estado = new Estado(this.id_estado);
+        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep);
     }
-
-
-
-
-//    public Compra toModel() {
-//        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.pais, this.estado, this.telefone, this.cep);
-//    }
 }

@@ -30,6 +30,9 @@ public class Estado {
         this.pais = pais;
     }
 
+    public Estado(Long idEstado) {
+    }
+
     public Long getId() {
         return id;
     }
