@@ -4,7 +4,7 @@ import com.cdc.exception.EstadoExistsException;
 import com.cdc.exception.ValorIncorretoException;
 import com.cdc.model.Estado;
 import com.cdc.requests.CompraRequest;
-import com.cdc.service.CompraService;
+import com.cdc.service.PedidoService;
 import com.cdc.service.VerificaPaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,12 +21,11 @@ import java.util.List;
 @RestController
 public class CompraController {
 
+    @Autowired
+    VerificaPaisService verificaPaisService;
 
     @Autowired
-    VerificaPaisService verificaPaisService;//1
-
-    @Autowired
-    CompraService compraService;//1
+    PedidoService pedidoService;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -37,22 +36,19 @@ public class CompraController {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
 
-
         return compraRequest.toString();
-    }
-
-    private void ComparaValorDoPedidoComOvalorTotalDosItens(CompraRequest compraRequest) {
-        if (compraRequest.getPedidoRequest().getTotal().compareTo(compraService.valorTotalDosItensDoCarrinho(compraRequest.getPedidoRequest())) != 0) {
-            throw new ValorIncorretoException("O valor total da compra não confere com o valor total dos itens do pedido");
-        }//1
     }
 
     private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {
         List<Estado> listaEstados = new ArrayList<>(verificaPaisService.carregarEstadosDoPais(compraRequest.getPais()));
         if (listaEstados.size() > 0 && compraRequest.getEstado() == null) {
             throw new EstadoExistsException("Estado não pode ser vazio");
-        }//1
+        }
     }
 
-
+    private void ComparaValorDoPedidoComOvalorTotalDosItens(CompraRequest compraRequest) {
+        if (compraRequest.getPedidoRequest().getTotal().compareTo(pedidoService.valorTotalDosItensDoCarrinho(compraRequest.getPedidoRequest().getItens())) != 0) {
+            throw new ValorIncorretoException("O valor total da compra não confere com o valor total dos itens do pedido");
+        }
+    }
 }

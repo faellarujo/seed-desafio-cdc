@@ -1,6 +1,7 @@
 package com.cdc.requests;
 
 
+import com.cdc.exception.ValorIncorretoException;
 import com.cdc.model.Estado;
 import com.cdc.model.Pais;
 import com.cdc.service.VerificaPaisService;
@@ -194,6 +195,8 @@ public class  CompraRequest {
                 ", pedidoRequest=" + pedido +
                 '}';
     }
+
+
 
 
 //    public Compra toModel() {
