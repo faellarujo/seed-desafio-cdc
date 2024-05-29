@@ -1,12 +1,12 @@
 package com.cdc.requests;
 
 
-import com.cdc.model.Compra;
-import com.cdc.model.Estado;
-import com.cdc.model.Pais;
+import com.cdc.exception.EstadoExistsException;
+import com.cdc.model.*;
 import com.cdc.service.VerificaPaisService;
 import com.cdc.validadores.Documento;
 import com.cdc.validadores.ExistId;
+import com.cdc.validadores.UniqueValue;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -14,7 +14,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class  CompraRequest {
+import java.time.LocalDate;
+
+public class CompraRequest {
 
     @PersistenceContext
     EntityManager entityManager;
@@ -62,7 +64,11 @@ public class  CompraRequest {
     @Valid
     private PedidoRequest pedido;
 
-    public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais,  Long id_estado, @NotBlank String telefone, @NotBlank String cep, @Valid PedidoRequest pedido) {
+    private String codigoCupom;
+
+
+
+    public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais, Long id_estado, @NotBlank String telefone, @NotBlank String cep, @Valid PedidoRequest pedido, String cupomDesconto) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -75,7 +81,10 @@ public class  CompraRequest {
         this.telefone = telefone;
         this.cep = cep;
         this.pedido = pedido;
+        this.codigoCupom = cupomDesconto;
     }
+
+
 
     public String getEmail() {
         return email;
@@ -173,6 +182,14 @@ public class  CompraRequest {
         this.pedido = pedido;
     }
 
+    public String getCodigoCupom() {
+        return codigoCupom;
+    }
+
+    public void setCodigoCupom(String codigoCupom) {
+        this.codigoCupom = codigoCupom;
+    }
+
 
     public Compra toModel() {
         final Pais pais = new Pais(this.id_pais);
@@ -180,3 +197,4 @@ public class  CompraRequest {
         return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep);
     }
 }
+

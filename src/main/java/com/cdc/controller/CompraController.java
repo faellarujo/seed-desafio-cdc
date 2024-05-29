@@ -5,6 +5,7 @@ import com.cdc.exception.ValorIncorretoException;
 import com.cdc.model.Compra;
 import com.cdc.model.Estado;
 import com.cdc.requests.CompraRequest;
+import com.cdc.service.CupomService;
 import com.cdc.service.PedidoService;
 import com.cdc.service.VerificaPaisService;
 import jakarta.persistence.EntityManager;
@@ -31,6 +32,9 @@ public class CompraController {
     @Autowired
     PedidoService pedidoService;
 
+    @Autowired
+    CupomService cupomService;
+
     @PersistenceContext
     EntityManager entityManager;
 
@@ -39,6 +43,9 @@ public class CompraController {
     public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
+        if (compraRequest.getCodigoCupom() != null) {
+            cupomService.verificaDataValidadeCupom(cupomService.verificaEstadoDoCupom(compraRequest.getCodigoCupom()));
+        }
         final Compra compra = compraRequest.toModel();
         entityManager.persist(compra);
         return ResponseEntity.status(HttpStatus.OK).body(compra);
