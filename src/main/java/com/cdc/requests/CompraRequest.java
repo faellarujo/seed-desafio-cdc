@@ -67,7 +67,6 @@ public class CompraRequest {
     private String codigoCupom;
 
 
-
     public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank Long id_pais, Long id_estado, @NotBlank String telefone, @NotBlank String cep, @Valid PedidoRequest pedido, String cupomDesconto) {
         this.email = email;
         this.nome = nome;
@@ -83,8 +82,6 @@ public class CompraRequest {
         this.pedido = pedido;
         this.codigoCupom = cupomDesconto;
     }
-
-
 
     public String getEmail() {
         return email;
@@ -194,7 +191,9 @@ public class CompraRequest {
     public Compra toModel() {
         final Pais pais = new Pais(this.id_pais);
         final Estado estado = new Estado(this.id_estado);
-        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep);
+        final CupomDesconto cupomDesconto = new CupomDesconto(this.codigoCupom, 0.0, LocalDate.now().toString(), EstatusCupom.ATIVO);
+        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, cupomDesconto);
+
     }
 }
 

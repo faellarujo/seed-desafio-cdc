@@ -43,12 +43,19 @@ public class CompraController {
     public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
-        if (compraRequest.getCodigoCupom() != null) {
-            cupomService.verificaDataValidadeCupom(cupomService.verificaEstadoDoCupom(compraRequest.getCodigoCupom()));
-        }
+        verrificaCupom(compraRequest);
         final Compra compra = compraRequest.toModel();
         entityManager.persist(compra);
         return ResponseEntity.status(HttpStatus.OK).body(compra);
+    }
+
+    private void verrificaCupom(CompraRequest compraRequest) {
+        // preciso verificar se a string esta vazia
+
+
+        if (compraRequest.getCodigoCupom() != null && compraRequest.getCodigoCupom().length() > 1) {
+            cupomService.verificaDataValidadeCupom(cupomService.verificaEstadoDoCupom(compraRequest.getCodigoCupom()));
+        }
     }
 
     private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {

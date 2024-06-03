@@ -1,6 +1,7 @@
 package com.cdc.requests;
 
 import com.cdc.model.CupomDesconto;
+import com.cdc.model.EstatusCupom;
 import com.cdc.validadores.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -32,13 +33,25 @@ public class CupomDescontoRequest {
         @JsonSerialize(using = LocalDateSerializer.class)
         private LocalDate validade;
 
+        private EstatusCupom estatusCupom;
+
+
+
         public CupomDescontoRequest() {
         }
 
-        public CupomDescontoRequest(@NotBlank String codigo, @NotNull @Positive BigDecimal percentualDesconto, @Future LocalDate validade) {
+        public CupomDescontoRequest(@NotBlank String codigo, @NotNull @Positive BigDecimal percentualDesconto, @Future LocalDate validade, EstatusCupom estatusCupom) {
                 this.codigo = codigo;
                 this.percentualDesconto = percentualDesconto;
                 this.validade = validade;
+                this.estatusCupom = estatusCupom;
+        }
+        public EstatusCupom getEstatusCupom() {
+                return estatusCupom;
+        }
+
+        public void setEstatusCupom(EstatusCupom estatusCupom) {
+                this.estatusCupom = estatusCupom;
         }
 
         public @NotBlank String getCodigo() {
@@ -72,10 +85,12 @@ public class CupomDescontoRequest {
                         "codigo='" + codigo + '\'' +
                         ", percentualDesconto=" + percentualDesconto +
                         ", validade=" + validade +
+                        ", estatusCupom=" + estatusCupom +
                         '}';
+
         }
 
         public CupomDesconto toModel(){
-                return new CupomDesconto(this.codigo, this.percentualDesconto.doubleValue(), this.validade.toString());
+                return new CupomDesconto(this.codigo, this.percentualDesconto.doubleValue(), this.validade.toString(), EstatusCupom.ATIVO);
         }
 }

@@ -29,7 +29,11 @@ public class Compra{
     private String telefone;
     private String cep;
 
-    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cupom_id", referencedColumnName = "id")
+    private CupomDesconto cupomDesconto;
+
+    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep, CupomDesconto cupomDesconto) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -41,6 +45,7 @@ public class Compra{
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.cupomDesconto = cupomDesconto;
     }
 
     public Compra() {
@@ -99,6 +104,14 @@ public class Compra{
         return cep;
     }
 
+    public CupomDesconto getCupomDesconto() {
+        return cupomDesconto;
+    }
+
+    public void setCupomDesconto(CupomDesconto cupomDesconto) {
+        this.cupomDesconto = cupomDesconto;
+    }
+
     @Override
     public String toString() {
         return "Compra{" +
@@ -114,6 +127,8 @@ public class Compra{
                 ", estado=" + estado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
+
+", cupomDesconto='" + cupomDesconto + '\'' +
                 '}';
     }
 

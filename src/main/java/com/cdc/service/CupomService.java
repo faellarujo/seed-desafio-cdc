@@ -1,5 +1,6 @@
 package com.cdc.service;
 
+import com.cdc.exception.CupomDataException;
 import com.cdc.exception.CupomExisteException;
 import com.cdc.model.CupomDesconto;
 import jakarta.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class CupomService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // ajuste o padrão para corresponder ao formato da sua data
         LocalDate validade = LocalDate.parse(cupom.get().getValidade(), formatter);
         if (validade.isBefore(LocalDate.now())) {
-            throw new CupomExisteException("Cupom expirado");
+            throw new CupomDataException("Cupom expirado");
         }
     }
 }
