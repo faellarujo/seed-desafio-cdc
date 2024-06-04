@@ -51,6 +51,20 @@ public class Compra{
     public Compra() {
     }
 
+    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep) {
+        this.email = email;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.documento = documento;
+        this.endereco = endereco;
+        this.complemento = complemento;
+        this.cidade = cidade;
+        this.pais = pais;
+        this.estado = estado;
+        this.telefone = telefone;
+        this.cep = cep;
+    }
+
     public String getEmail() {
         return email;
     }

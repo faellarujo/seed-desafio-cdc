@@ -9,6 +9,9 @@ public class CupomDesconto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
 
     private String codigo;
 
@@ -19,6 +22,10 @@ public class CupomDesconto {
 
     @Enumerated(EnumType.STRING)
     private EstatusCupom estatusCupom;
+
+    public CupomDesconto(String codigoCupom) {
+
+    }
 
     public EstatusCupom getEstatusCupom() {
         return estatusCupom;

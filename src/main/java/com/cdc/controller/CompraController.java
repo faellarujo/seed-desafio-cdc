@@ -3,6 +3,7 @@ package com.cdc.controller;
 import com.cdc.exception.EstadoExistsException;
 import com.cdc.exception.ValorIncorretoException;
 import com.cdc.model.Compra;
+import com.cdc.model.CupomDesconto;
 import com.cdc.model.Estado;
 import com.cdc.requests.CompraRequest;
 import com.cdc.service.CupomService;
@@ -43,19 +44,30 @@ public class CompraController {
     public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
-        verrificaCupom(compraRequest);
+        final Long cupomID = verrificaCupom(compraRequest);
+        if (cupomID != null) {
+            final Compra compra = compraRequest.toModelComCupom(cupomID);
+            compra.setCupomDesconto(entityManager.find(CupomDesconto.class, cupomID));
+            entityManager.persist(compra);
+            cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());
+            return ResponseEntity.status(HttpStatus.OK).body(compra);
+        }
         final Compra compra = compraRequest.toModel();
         entityManager.persist(compra);
+        cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());
         return ResponseEntity.status(HttpStatus.OK).body(compra);
     }
 
-    private void verrificaCupom(CompraRequest compraRequest) {
-        // preciso verificar se a string esta vazia
-
-
+    private Long verrificaCupom(CompraRequest compraRequest) {
         if (compraRequest.getCodigoCupom() != null && compraRequest.getCodigoCupom().length() > 1) {
-            cupomService.verificaDataValidadeCupom(cupomService.verificaEstadoDoCupom(compraRequest.getCodigoCupom()));
+            final List<CupomDesconto> cupomDescontos = cupomService.verificaExistenciaDoCupom(compraRequest.getCodigoCupom());
+            cupomService.verificaStatusCupom(cupomDescontos);
+            cupomService.verificaDataValidadeCupom(cupomService.verificaExistenciaDoCupom(compraRequest.getCodigoCupom()));
+            final CupomDesconto cupomDesconto = cupomDescontos.get(0);
+            final Long id = cupomDesconto.getId();
+            return id;
         }
+        return null;
     }
 
     private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {

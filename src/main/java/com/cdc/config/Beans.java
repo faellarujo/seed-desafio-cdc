@@ -3,6 +3,7 @@ package com.cdc.config;
 import com.cdc.model.Autor;
 import com.cdc.model.Categoria;
 import com.cdc.model.Pais;
+import com.cdc.service.CupomService;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -21,6 +22,11 @@ public class Beans {
     @org.springframework.context.annotation.Bean
     public Pais paisModel(){
         return new Pais();
+    }
+
+    @org.springframework.context.annotation.Bean
+    public CupomService cupomService(){
+        return new CupomService();
     }
 
 

@@ -2,6 +2,7 @@ package com.cdc.service;
 
 import com.cdc.exception.CupomDataException;
 import com.cdc.exception.CupomExisteException;
+import com.cdc.exception.CupomInativoException;
 import com.cdc.model.CupomDesconto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,7 +21,7 @@ public class CupomService {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<CupomDesconto> verificaEstadoDoCupom(String codigoCupom) {
+    public List<CupomDesconto> verificaExistenciaDoCupom(String codigoCupom) {
 
         List<CupomDesconto> listCupom = new ArrayList<>();
         listCupom = entityManager.createQuery("select c from CupomDesconto c where c.codigo = :codeCupom", CupomDesconto.class)
@@ -40,6 +41,21 @@ public class CupomService {
         if (validade.isBefore(LocalDate.now())) {
             throw new CupomDataException("Cupom expirado");
         }
+    }
+
+
+    public List<CupomDesconto> verificaStatusCupom(List<CupomDesconto> cupomDesconto) {
+        Optional<CupomDesconto> cupom = cupomDesconto.stream().findFirst();
+        if (cupom.get().getEstatusCupom().name().equals("INATIVO")) {
+            throw new CupomInativoException("Cupom inativo");
+        }
+        return cupomDesconto;
+    }
+
+    public void invalidaCupomUtilizado(String codigoCupom) {
+        Query query = entityManager.createQuery("update CupomDesconto c set c.estatusCupom = 'INATIVO' where c.codigo = :codeCupom");
+        query.setParameter("codeCupom", codigoCupom);
+        query.executeUpdate();
     }
 }
 

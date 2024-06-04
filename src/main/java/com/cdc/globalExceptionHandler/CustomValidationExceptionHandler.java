@@ -76,6 +76,11 @@ public class CustomValidationExceptionHandler {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 
+    @ExceptionHandler(CupomInativoException.class)//1
+    public ResponseEntity<String> IllegalStateException(CupomInativoException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
 
 
 

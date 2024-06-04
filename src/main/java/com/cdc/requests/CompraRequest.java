@@ -1,8 +1,10 @@
 package com.cdc.requests;
 
 
+import com.cdc.exception.CupomExisteException;
 import com.cdc.exception.EstadoExistsException;
 import com.cdc.model.*;
+import com.cdc.service.CupomService;
 import com.cdc.service.VerificaPaisService;
 import com.cdc.validadores.Documento;
 import com.cdc.validadores.ExistId;
@@ -13,16 +15,26 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 
 public class CompraRequest {
 
-    @PersistenceContext
+    @Autowired
     EntityManager entityManager;
 
     @PersistenceContext
     VerificaPaisService verificaPaisService;
+
+    @Autowired
+    CupomService cupomService;
 
     @NotBlank
     @Email
@@ -191,9 +203,11 @@ public class CompraRequest {
     public Compra toModel() {
         final Pais pais = new Pais(this.id_pais);
         final Estado estado = new Estado(this.id_estado);
-        final CupomDesconto cupomDesconto = new CupomDesconto(this.codigoCupom, 0.0, LocalDate.now().toString(), EstatusCupom.ATIVO);
-        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep, cupomDesconto);
+        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, pais, estado, this.telefone, this.cep);
+    }
 
+    public Compra toModelComCupom(Long idCupom){
+        return new Compra(this.email, this.nome, this.sobrenome, this.documento, this.endereco, this.complemento, this.cidade, new Pais(this.id_pais), new Estado(this.id_estado), this.telefone, this.cep, new CupomDesconto());
     }
 }
 
