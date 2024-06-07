@@ -41,7 +41,7 @@ public class CompraController {
 
     @PostMapping("/compra")
     @Transactional
-    public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
+    public ResponseEntity<CompraRequest> compra(@RequestBody @Valid CompraRequest compraRequest) {
         verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
         final Long cupomID = verrificaCupom(compraRequest);
@@ -50,12 +50,12 @@ public class CompraController {
             compra.setCupomDesconto(entityManager.find(CupomDesconto.class, cupomID));
             entityManager.persist(compra);
             cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());
-            return ResponseEntity.status(HttpStatus.OK).body(compra);
+            return ResponseEntity.status(HttpStatus.OK).body(compraRequest);
         }
         final Compra compra = compraRequest.toModel();
         entityManager.persist(compra);
         cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());
-        return ResponseEntity.status(HttpStatus.OK).body(compra);
+        return ResponseEntity.status(HttpStatus.OK).body(compraRequest);
     }
 
     private Long verrificaCupom(CompraRequest compraRequest) {

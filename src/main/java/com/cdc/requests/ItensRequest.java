@@ -7,9 +7,15 @@ import jakarta.validation.constraints.NotNull;
 
 public class ItensRequest {
 
+
+
+
     @NotNull
     @ExistId(domainClass = Livro.class, fieldName = "id")
     private Long idLivro;
+
+    private String nomeLivro;
+
     @NotNull
     @Min(1)
     private int quantidade;
@@ -20,6 +26,14 @@ public class ItensRequest {
     public ItensRequest(@NotNull Long idLivro, int quantidade) {
         this.idLivro = idLivro;
         this.quantidade = quantidade;
+    }
+
+    public String getNomeLivro() {
+        return nomeLivro;
+    }
+
+    public void setNomeLivro(String nomeLivro) {
+        this.nomeLivro = nomeLivro;
     }
 
     public Long getIdLivro() {
