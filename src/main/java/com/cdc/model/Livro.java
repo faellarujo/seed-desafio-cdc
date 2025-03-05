@@ -37,8 +37,7 @@ public class Livro {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "autor_id")
-
+    @JoinColumn(name = "idAutor")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Autor autor;
 

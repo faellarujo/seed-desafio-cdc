@@ -55,11 +55,9 @@ public class LivroRequest {
     private LocalDate dataPublicacao;
 
     @NotNull
-    @UniqueValue(domainClass = Categoria.class, fieldName = "id")
     private Long idCategoria;
 
     @NotNull
-    @UniqueValue(domainClass = Autor.class, fieldName = "id")
     private Long idAutor;
 
 

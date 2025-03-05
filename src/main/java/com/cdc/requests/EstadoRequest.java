@@ -1,8 +1,6 @@
 package com.cdc.requests;
 
 import com.cdc.model.Estado;
-import com.cdc.model.Pais;
-import com.cdc.validation.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,11 +8,9 @@ public class EstadoRequest {
 
 
     @NotBlank
-    @UniqueValue(domainClass = EstadoRequest.class, fieldName = "nome")
     private String nome;
 
     @NotNull(message = "É obrigatório informar o país ao qual o estado pertence.")
-    @UniqueValue(domainClass = Pais.class, fieldName = "id")
     private Long paisId;
 
     public EstadoRequest(@NotBlank String nome, @NotNull Long paisId) {
