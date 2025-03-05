@@ -1,7 +1,7 @@
 package com.cdc.requests;
 
 import com.cdc.model.Autor;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

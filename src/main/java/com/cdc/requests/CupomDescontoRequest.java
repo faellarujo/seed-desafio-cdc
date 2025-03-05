@@ -2,7 +2,7 @@ package com.cdc.requests;
 
 import com.cdc.model.CupomDesconto;
 import com.cdc.model.EstatusCupom;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

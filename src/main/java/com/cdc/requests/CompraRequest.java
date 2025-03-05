@@ -1,14 +1,10 @@
 package com.cdc.requests;
 
 
-import com.cdc.exception.CupomExisteException;
-import com.cdc.exception.EstadoExistsException;
 import com.cdc.model.*;
 import com.cdc.service.CupomService;
 import com.cdc.service.VerificaPaisService;
-import com.cdc.validadores.Documento;
-import com.cdc.validadores.ExistId;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
@@ -16,13 +12,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-
 
 
 public class CompraRequest {
@@ -47,7 +36,7 @@ public class CompraRequest {
     private String sobrenome;
 
     @NotBlank
-    @Documento(domainClass = CompraRequest.class, fieldName = "documento")
+    @UniqueValue(domainClass = CompraRequest.class, fieldName = "documento")
     private String documento;
 
 
@@ -61,10 +50,10 @@ public class CompraRequest {
     private String cidade;
 
     @NotNull
-    @ExistId(domainClass = Pais.class, fieldName = "id")
+    @UniqueValue(domainClass = Pais.class, fieldName = "id")
     private Long id_pais;
 
-    @ExistId(domainClass = Estado.class, fieldName = "id")
+    @UniqueValue(domainClass = Estado.class, fieldName = "id")
     private Long id_estado;
 
     @NotBlank

@@ -2,7 +2,6 @@ package com.cdc.requests;
 
 import com.cdc.exception.ValorIncorretoException;
 import com.cdc.service.PedidoService;
-import jakarta.persistence.PersistenceContext;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

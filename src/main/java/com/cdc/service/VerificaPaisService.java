@@ -1,7 +1,6 @@
 package com.cdc.service;
 
 import com.cdc.model.Estado;
-import com.cdc.model.Pais;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;

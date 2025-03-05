@@ -1,4 +1,4 @@
-package com.cdc.controller;
+package com.cdc.repository.controller;
 
 
 import com.cdc.requests.CategoriaRequest;

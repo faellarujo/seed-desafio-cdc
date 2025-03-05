@@ -3,8 +3,7 @@ package com.cdc.requests;
 import com.cdc.model.Autor;
 import com.cdc.model.Categoria;
 import com.cdc.model.Livro;
-import com.cdc.validadores.ExistId;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -56,11 +55,11 @@ public class LivroRequest {
     private LocalDate dataPublicacao;
 
     @NotNull
-    @ExistId(domainClass = Categoria.class, fieldName = "id")
+    @UniqueValue(domainClass = Categoria.class, fieldName = "id")
     private Long idCategoria;
 
     @NotNull
-    @ExistId(domainClass = Autor.class, fieldName = "id")
+    @UniqueValue(domainClass = Autor.class, fieldName = "id")
     private Long idAutor;
 
 

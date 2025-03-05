@@ -1,9 +1,8 @@
 package com.cdc.requests;
 
 import com.cdc.model.Pais;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class PaisRequest {

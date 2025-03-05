@@ -22,20 +22,6 @@ class CdcApplicationTests {
 	EntityManager entityManager;
 
 
-	@Test
-	void contextLoads() {
 
-		final VerificaPaisService verificaPaisService = new VerificaPaisService(entityManager);
-		final List<Pais> portugal = verificaPaisService.veririfaPais(	"Portugal");
-		final List<Estado> braga = verificaPaisService.verificaEstadoExist("Braga");
-
-		System.out.println(portugal);
-
-
-
-
-
-
-	}
 
 }

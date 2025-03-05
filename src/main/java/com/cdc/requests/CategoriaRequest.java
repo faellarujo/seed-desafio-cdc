@@ -1,7 +1,7 @@
 package com.cdc.requests;
 
 import com.cdc.model.Categoria;
-import com.cdc.validadores.UniqueValue;
+import com.cdc.validation.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 
 public class CategoriaRequest {
