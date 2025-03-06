@@ -1,4 +1,4 @@
-package com.cdc.repository.controller;
+package com.cdc.controller;
 
 import com.cdc.requests.PagamentoParte01Request;
 import jakarta.transaction.Transactional;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PagamentoParte01Conteoller {
+public class PagamentoParte01Controller {
 
     @PostMapping("/pagamentoParteUm")
     @Transactional

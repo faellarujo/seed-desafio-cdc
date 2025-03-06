@@ -40,7 +40,7 @@ public class CustomValidationExceptionHandler {
 
 
     @ExceptionHandler(DocumentoInvalido.class)//1
-    public ResponseEntity<String> DocumentoInvalido(LivroExistException ex) {
+    public ResponseEntity<String> DocumentoInvalido(DocumentoInvalido ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 
@@ -78,6 +78,11 @@ public class CustomValidationExceptionHandler {
 
     @ExceptionHandler(CupomInativoException.class)//1
     public ResponseEntity<String> IllegalStateException(CupomInativoException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DocumentoObrigatorio.class)//1
+    public ResponseEntity<String> DocumentoObrigatorio(DocumentoObrigatorio ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 

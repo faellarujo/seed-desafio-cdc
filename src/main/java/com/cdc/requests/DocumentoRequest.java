@@ -1,5 +1,9 @@
 package com.cdc.requests;
 
+import com.cdc.exception.DocumentoInvalido;
+import com.cdc.exception.DocumentoObrigatorio;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,19 +15,18 @@ public class DocumentoRequest {
     @CNPJ
     private String cnpj;
 
-    // Default constructor
+    // Construtor padrão
     public DocumentoRequest() {
     }
 
-
-    public DocumentoRequest(String documento) {
-        // preciso verificar se é cpf ou cnpj
-        if (documento.length() == 11) {
-            this.cpf = documento;
-        } else if (documento.length() == 14) {
-            this.cnpj = documento;
+    @JsonCreator
+    public DocumentoRequest(@JsonProperty("cpf") String cpf, @JsonProperty("cnpj") String cnpj) {
+        if (cpf != null && !cpf.isEmpty()) {
+            this.cpf = cpf;
+        } else if (cnpj != null && !cnpj.isEmpty()) {
+            this.cnpj = cnpj;
         } else {
-            throw new IllegalArgumentException("DocumentoRequest inválido");
+            throw new DocumentoInvalido("Documento inválido");
         }
     }
 
@@ -48,4 +51,10 @@ public class DocumentoRequest {
         return "DocumentoRequest [cpf=" + cpf + ", cnpj=" + cnpj + "]";
     }
 
+    public String existeDocumento(String documento) {
+        if (documento == null) {
+            throw new DocumentoObrigatorio("Documento Obrigatorio");
+        }
+        return documento;
+    }
 }

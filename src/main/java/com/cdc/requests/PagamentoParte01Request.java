@@ -130,7 +130,7 @@ public class PagamentoParte01Request {
         this.telefone = telefone;
     }
 
-    public PagamentoParte01Request(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, DocumentoRequest documentoRequest, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull String pais, String estado, @NotBlank String telefone, @NotBlank String cep) {
+    public PagamentoParte01Request(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @Valid DocumentoRequest documentoRequest, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull String pais, String estado, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;

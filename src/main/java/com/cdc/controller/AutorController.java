@@ -1,4 +1,4 @@
-package com.cdc.repository.controller;
+package com.cdc.controller;
 
 
 import com.cdc.requests.AutorRequest;
