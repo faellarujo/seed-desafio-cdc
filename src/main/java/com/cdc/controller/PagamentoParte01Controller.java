@@ -1,33 +1,36 @@
 package com.cdc.controller;
 
+import com.cdc.exception.EstadoExistsException;
+import com.cdc.model.Estado;
 import com.cdc.requests.PagamentoParte01Request;
+import com.cdc.service.PaisService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class PagamentoParte01Controller {
+
+    @Autowired
+    PaisService paisService;
 
     @PostMapping("/pagamentoParteUm")
     @Transactional
     public ResponseEntity<String> compra(@RequestBody @Valid PagamentoParte01Request compraRequest) {
-        /*verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
-        ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
-        final Long cupomID = verrificaCupom(compraRequest);
-        if (cupomID != null) {
-            final Compra compra = compraRequest.toModelComCupom(cupomID);
-            compra.setCupomDesconto(entityManager.find(CupomDesconto.class, cupomID));
-            entityManager.persist(compra);
-            cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());
-            return ResponseEntity.status(HttpStatus.OK).body(compra);
+
+        final List<Estado> estados = paisService.carregarEstadosDoPaisCasoExistam(compraRequest.getPais());
+        if (!estados.isEmpty() || !compraRequest.getEstado().isEmpty()) {
+            if (estados.stream().noneMatch(estado -> estado.getNome().equals(compraRequest.getEstado()))) {
+                throw new EstadoExistsException("O Estado informado não pertence a este Pais");
+            }
         }
-        final Compra compra = compraRequest.toModel();
-        entityManager.persist(compra);
-        cupomService.invalidaCupomUtilizado(compraRequest.getCodigoCupom());*/
         return ResponseEntity.status(HttpStatus.OK).body(compraRequest.toString());
-}
+    }
 }

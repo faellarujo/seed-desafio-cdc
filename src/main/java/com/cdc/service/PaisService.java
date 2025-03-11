@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class VerificaPaisService {
+public class PaisService {
 
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public VerificaPaisService(EntityManager entityManager) {
+    public PaisService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    public List<Estado> carregarEstadosDoPais(long id_pais) {
-        return entityManager.createQuery("select e from Estado e where e.pais.id = :id_pais", Estado.class)
-                .setParameter("id_pais", id_pais)
+    public List<Estado> carregarEstadosDoPaisCasoExistam(String pais) {
+        return entityManager.createQuery("select e from Estado e where e.pais.nome = :pais", Estado.class)
+                .setParameter("pais", pais)
                 .getResultList();
     }
 

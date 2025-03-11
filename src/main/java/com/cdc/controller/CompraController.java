@@ -8,14 +8,13 @@ import com.cdc.model.Estado;
 import com.cdc.requests.CompraRequest;
 import com.cdc.service.CupomService;
 import com.cdc.service.PedidoService;
-import com.cdc.service.VerificaPaisService;
+import com.cdc.service.PaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +27,7 @@ import java.util.List;
 public class CompraController {
 
     @Autowired
-    VerificaPaisService verificaPaisService;
+    PaisService paisService;
 
     @Autowired
     PedidoService pedidoService;
@@ -42,7 +41,7 @@ public class CompraController {
     @PostMapping("/compra")
     @Transactional
     public ResponseEntity<Compra> compra(@RequestBody @Valid CompraRequest compraRequest) {
-        verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
+//        verificaSeOPaisPossuiEstadosCadastrados(compraRequest);
         ComparaValorDoPedidoComOvalorTotalDosItens(compraRequest);
         final Long cupomID = verrificaCupom(compraRequest);
         if (cupomID != null) {
@@ -70,12 +69,12 @@ public class CompraController {
         return null;
     }
 
-    private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {
-        List<Estado> listaEstados = new ArrayList<>(verificaPaisService.carregarEstadosDoPais(compraRequest.getPais()));
-        if (listaEstados.size() > 0 && compraRequest.getEstado() == null) {
-            throw new EstadoExistsException("Estado não pode ser vazio");
-        }
-    }
+//    private void verificaSeOPaisPossuiEstadosCadastrados(CompraRequest compraRequest) {
+//        List<Estado> listaEstados = new ArrayList<>(paisService.carregarEstadosDoPais(compraRequest.getPais()));
+//        if (listaEstados.size() > 0 && compraRequest.getEstado() == null) {
+//            throw new EstadoExistsException("Estado não pode ser vazio");
+//        }
+//    }
 
     private void ComparaValorDoPedidoComOvalorTotalDosItens(CompraRequest compraRequest) {
         if (compraRequest.getPedidoRequest().getTotal().compareTo(pedidoService.valorTotalDosItensDoCarrinho(compraRequest.getPedidoRequest().getItens())) != 0) {

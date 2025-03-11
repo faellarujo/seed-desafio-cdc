@@ -1,21 +1,16 @@
 package com.cdc;
 
-import com.cdc.model.Estado;
-import com.cdc.model.Pais;
-import com.cdc.service.VerificaPaisService;
+import com.cdc.service.PaisService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 class CdcApplicationTests {
 
 	@Autowired
-	private VerificaPaisService verificaPaisService;
+	private PaisService paisService;
 
 
 	@PersistenceContext

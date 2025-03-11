@@ -3,7 +3,7 @@ package com.cdc.requests;
 
 import com.cdc.model.*;
 import com.cdc.service.CupomService;
-import com.cdc.service.VerificaPaisService;
+import com.cdc.service.PaisService;
 import com.cdc.validation.UniqueValue;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,7 +20,7 @@ public class CompraRequest {
     EntityManager entityManager;
 
     @PersistenceContext
-    VerificaPaisService verificaPaisService;
+    PaisService paisService;
 
     @Autowired
     CupomService cupomService;

@@ -1,5 +1,6 @@
 package com.cdc.requests;
 
+import com.cdc.model.Pais;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -30,7 +31,7 @@ public class PagamentoParte01Request {
     @NotBlank
     private String cidade;
 
-    @NotNull
+    @NotBlank
     private String pais;
 
     private String estado;
@@ -105,11 +106,11 @@ public class PagamentoParte01Request {
         this.nome = nome;
     }
 
-    public @NotNull String getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public void setPais(@NotNull String pais) {
+    public void setPais(String pais) {
         this.pais = pais;
     }
 
@@ -130,7 +131,7 @@ public class PagamentoParte01Request {
         this.telefone = telefone;
     }
 
-    public PagamentoParte01Request(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @Valid DocumentoRequest documentoRequest, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull String pais, String estado, @NotBlank String telefone, @NotBlank String cep) {
+    public PagamentoParte01Request(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @Valid DocumentoRequest documentoRequest, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank String pais, String estado, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
